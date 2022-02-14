@@ -1,0 +1,427 @@
+openapi: 3.0.1
+info:
+  title: Game shop API
+  version: '1'
+  description: Basic API for retrieving and manipulating stock
+  contact:
+    name: Steven Loh
+    url: getloh.co.uk
+paths:
+  /orders:
+    summary: GET all orders
+    description: Get all orders data
+    get:
+      summary: Get order data
+      description: managerial level retrieve order data
+      operationId: get_orders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Array of order information objects:
+                  value:
+                    orders:
+                      - user_id: 1
+                        invoice_id: 3
+                        inventory_id: 28
+                        quantity: 1
+                        dispatched: true
+                        payment: VISA
+                      - user_id: 3
+                        invoice_id: 4
+                        inventory_id: 2
+                        quantity: 1
+                        dispatched: true
+                        payment: VISA
+                      - ...
+        default:
+          description: Default error sample response
+      tags:
+        - Order information
+  /orders/{id}:
+    summary: GET a single order via ID
+    description: Get single order via ID
+    get:
+      summary: Gets a single order via order_id
+      description: Retrieves the order information from SQL
+      operationId: get_order_single
+      parameters:
+        - name: id
+          in: path
+          description: The id of the order.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Single order response:
+                  value:
+                    order:
+                      order_id: 1
+                      invoice_id: 3
+                      inventory_id: 28
+                      quantity: 1
+                      dispatched: true
+                      payment: VISA
+        default:
+          description: Default error sample response
+      tags:
+        - Order information
+    delete:
+      summary: Delete an order
+      description: Deletes an order from the database
+      operationId: delete_order
+      parameters:
+        - name: id
+          in: path
+          description: The id of the order.
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: response
+          content:
+            application/json:
+              examples:
+                no response:
+                  value: Response code only
+        default:
+          description: Default error sample response
+      tags:
+        - Order information
+  /orders/user/{id}:
+    summary: GET ALL orders from a user
+    description: Gets all orders a single user has made
+    get:
+      summary: Get orders made by a user {id}
+      description: Retrieve array of objects for user relating to orders
+      operationId: get_user_orders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Array of order information objects:
+                  value:
+                    orders:
+                      - user_id: 1
+                        invoice_id: 3
+                        inventory_id: 28
+                        quantity: 1
+                        dispatched: true
+                        payment: VISA
+                      - user_id: 1
+                        invoice_id: 5
+                        inventory_id: 7
+                        quantity: 2
+                        dispatched: true
+                        payment: VISA
+                      - ...
+      parameters:
+        - name: id
+          in: path
+          description: The id of the order.
+          required: true
+          schema:
+            type: string
+      tags:
+        - Order information
+  /orders/new:
+    summary: For new orders
+    description: Generates new orders
+    post:
+      summary: New order creation
+      description: Creates a new order, posts the data to SQL
+      operationId: post_order
+      requestBody:
+        description: A new order object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              examples:
+                Response of successful creation of invoice:
+                  value:
+                    user_id: 5
+                    invoice_id: 29
+                    inventory_id: 30
+                    quantity: 1
+                    dispatched: false
+                    payment: VISA
+        default:
+          description: Default error sample response
+      tags:
+        - Order information
+  /users/{id}:
+    summary: For user operations
+    get:
+      summary: Retrieve information relating to the logged in user
+      description: Will use userdata to fetch information relating to the user
+      operationId: get_user_info
+      parameters:
+        - name: id
+          in: path
+          description: The id of the order.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              examples:
+                User info:
+                  value:
+                    user_id: 20
+                    firstname: Dave
+                    lastname: walker
+                    email: dave@hotmail.com
+                    address: longaddress
+                    postcode: AG27 7TH
+        default:
+          description: Default error sample response
+      tags:
+        - User info
+    put:
+      summary: Amend user info
+      description: Amend user info
+      operationId: update_user_info
+      parameters:
+        - name: id
+          in: path
+          description: The id of the order.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update user information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - User info
+  /users/new:
+    summary: New user
+    description: For creation of new user
+    post:
+      summary: Creates a new user
+      description: for creation of new users
+      operationId: new_user
+      requestBody:
+        description: A new order object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: user successfully created
+          content:
+            application/json:
+              examples:
+                New user successfully created:
+                  value:
+                    user_id: 20
+                    firstname: Dave
+                    lastname: walker
+                    email: dave@hotmail.com
+                    address: longaddress
+                    postcode: AG27 7TH
+        default:
+          description: Default error sample response
+      tags:
+        - User info
+  /inventory:
+    summary: Games store inventory commands
+    get:
+      summary: Retrieves all inventory information
+      description: ''
+      operationId: get_all_inventory
+      responses:
+        '200':
+          description: inventory data array
+          content:
+            application/json:
+              examples:
+                Array of objects relating to inventory:
+                  value:
+                    inventory:
+                      - inventory_id: 105
+                        title: borderlands
+                        platform: xbox360
+                        stock: 75
+                        game_id 82: null
+                      - inventory_id: 106
+                        title: bayonetta
+                        platform: xbox360
+                        stock: 66
+                        game_id 89: null
+                      - ...
+        default:
+          description: Default error sample response
+      tags:
+        - Inventory
+  /inventory/{id}:
+    summary: Retrieves array of games relating to game_id
+    get:
+      summary: Retrieves array of inventory relating to game_id
+      description: ''
+      operationId: get_inventory_id
+      parameters:
+        - name: id
+          in: path
+          description: Game_id relating to the product
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Array of game inventory relating to game_id
+          content:
+            application/json:
+              examples:
+                Array of game inventory relating to game_id:
+                  value:
+                    inventory:
+                      - inventory_id: 201
+                        title: max payne
+                        platform: PS2
+                        stock: 2
+                        game_id: 31
+                      - inventory_id: 229
+                        title: max payne
+                        platform: xbox
+                        stock: 1
+                        game_id: 31
+                    ...: null
+        default:
+          description: Default error sample response
+      tags:
+        - Inventory
+    put:
+      summary: Updates stock count of item relating to Inventory_id
+      description: ''
+      operationId: update_inventory_stock
+      parameters:
+        - name: id
+          in: path
+          description: Inventory_id relating to the product
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Inventory
+  /games:
+    summary: All games information
+    get:
+      summary: Retrieve all games info
+      description: Gets a basic array of game objects, does not include all details
+      operationId: get_games
+      responses:
+        '200':
+          description: Basic array of game objects
+          content:
+            application/json:
+              examples:
+                Basic Array of game objects:
+                  value:
+                    games:
+                      - game_id: 2
+                        title: Tony Hawks Pro Skater 2
+                        release: 1999
+                        rating: 8
+                        image: http://picture.goes/here
+                      - game_id: 3
+                        title: Dave Mirra's BMX
+                        release: 2001
+                        rating: 5
+                        image: http://picture.goes/here
+        default:
+          description: Default error sample response
+      tags:
+        - Games
+  /games/{id}:
+    summary: Relating to single game information
+    get:
+      summary: Retrieves detailed information on a single game_id
+      description: ''
+      operationId: get_single_game
+      parameters:
+      - name: id
+        in: path
+        description: 'The id of the game.'
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Single game information
+          content:
+            application/json:
+              examples:
+                Example game detailed info:
+                  value: 
+                    {game_id: 2,
+                    title: Tony Hawks Pro Skater 2,
+                    release: 1999,
+                    info: long paragraph about the game goes here,
+                    rating: 8,
+                    votes: 285,
+                    image: http://picture.goes/here}
+        default:
+          description: Default error sample response
+      tags:
+        - Games
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        inventory_id:
+          type: integer
+        quantity:
+          type: integer
+        payment:
+          type: string
+      xml:
+        name: Order
+    User:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        address:
+          type: string
+        postcode:
+          type: string
+      xml:
+        name: User
