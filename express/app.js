@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
 
 var orderRouter = require('./routes/orders');
 var usersRouter = require('./routes/users');
@@ -20,14 +21,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true,}));
 
-// App routes/Routers
+
+//--------------------
+//* App routes/Routers
+//--------------------
 
 app.use('/api/orders', orderRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/inventory', inventoryRouter);
 app.use('/api/games', gamesRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

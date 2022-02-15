@@ -1,9 +1,31 @@
 var express = require('express');
-var router = express.Router();
+var gamesRouter = express.Router();
+const db = require('./database');
+const pool = db.pool;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+
+gamesRouter.get('/', function(req, res, next) {
+
+  pool.query('SELECT game_id, title, release, rating, image FROM games ORDER BY game_id ASC', (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.status(200).json(results.rows)
+  })
+
 });
 
-module.exports = router;
+gamesRouter.get('/:id', function(req, res, next) {
+  
+  pool.query(`SELECT * FROM games WHERE game_id = ${req.params.id} ORDER BY game_id ASC`, (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.status(200).json(results.rows)
+  })
+
+});
+
+
+module.exports = gamesRouter;
