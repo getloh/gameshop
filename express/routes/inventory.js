@@ -20,7 +20,7 @@ inventoryRouter.get('/', function(req, res, next) {
 });
 
 // Retrieves array of inventory relating to game_id
-inventoryRouter.get('/:id', function(req, res, next) {
+inventoryRouter.get('/game/:id', function(req, res, next) {
   pool.query(`SELECT * FROM inventory WHERE game_id = ${req.params.id} ORDER BY inventory_id ASC`, (error, results) => {
     if (error) {
       throw error
@@ -43,7 +43,6 @@ async function getStock(inv_id){
 
 // Retrieves JSON relating to order info and updates the stock for an ID
 inventoryRouter.put('/:id', async function(req, res, next) {
-  
   const inv_id = req.body.inventory_id;
   const quantitySold = req.body.quantity;
   
@@ -58,8 +57,6 @@ inventoryRouter.put('/:id', async function(req, res, next) {
       }
       res.status(200).send(`Stock has been modified Stock is now ${Number(currentStock-quantitySold)} for stock_ID ${inv_id}`)
     })
-
-    // res.status(101).send("Test")
 });
 
 module.exports = inventoryRouter;

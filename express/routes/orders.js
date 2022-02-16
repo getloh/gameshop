@@ -15,7 +15,6 @@ orderRouter.get('/', function(req, res, next) {
 
 // GETs a single order via Order_ID
 orderRouter.get('/:id', function(req, res, next) {
-  
   pool.query(`SELECT * FROM orders WHERE order_id = ${req.params.id}`, (error, results) => {
     if (error) {
       throw error
@@ -31,7 +30,6 @@ orderRouter.delete('/:id', function(req, res, next) {
 
 // GET a user's orders
 orderRouter.get('/user/:id', function(req, res, next) {
-  
   pool.query(`SELECT * FROM orders WHERE user_id = ${req.params.id}`, (error, results) => {
     if (error) {
       throw error
@@ -42,7 +40,6 @@ orderRouter.get('/user/:id', function(req, res, next) {
 
 // POST new order - will generate an order in orders DB
 orderRouter.post('/new', async function(req, res, next) {
-  
   pool.query(`INSERT INTO orders (user_id, inventory_id, quantity, payment) VALUES ($1, $2, $3, $4)`,
   [req.body.user_id, req.body.inventory_id, req.body.quantity, req.body.payment], (error, results) => {
     if (error) {
