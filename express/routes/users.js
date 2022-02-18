@@ -2,20 +2,22 @@ var express = require('express');
 var userRouter = express.Router();
 const db = require('./database');
 const pool = db.pool;
+const session = require('./login');
 
 
 /* Retrieve information relating to the logged in user */
-userRouter.get('/:id', function(req, res, next) {
+userRouter.get('/:id', session.authentication, function(req, res, next) {
   pool.query(`SELECT user_id, firstname, lastname, email, address, postcode FROM users WHERE user_id = ${req.params.id}`, (error, results) => {
     if (error) {
       throw error
     }
-    res.status(200).json(results.rows)
+    let resp = results.rows[0];
+    res.status(200).json(resp);
   })
 });
 
 // Amend user information
-userRouter.put('/:id', async function (req, res, next){
+userRouter.put('/:id', session.authentication, async function (req, res, next){
 
   if (req.body.firstname){
     pool.query(`UPDATE users SET firstname = $1 WHERE user_id = $2`,[req.body.firstname, req.params.id], (error, results) => {
@@ -72,6 +74,11 @@ userRouter.post ('/new', function (req, res, next){
     res.status(200).json(results.rows)
   })
 })
+
+
+
+
+
 
 
 module.exports = userRouter;

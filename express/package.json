@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --trace-warnings ./bin/www ",
+    "start": "node ./bin/www",
+    "dev": "nodemon --trace-warnings ./bin/www",
     "test": "mocha './test/tests.js'"
   },
   "dependencies": {

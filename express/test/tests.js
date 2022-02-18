@@ -59,7 +59,7 @@ describe('API Tests', () => {
                 .set('Accept', 'application/json');
             assert.equal(response.status, 200);
             assert.equal(response.body[0].game_id, sampleID);  // Expect returned object to have game_id of sampleID
-            assert.isString(response.body.title, true);
+            assert.isString(response.body[0].title, true);
             assert.isArray(response.body, true);
             })
     
@@ -100,7 +100,18 @@ describe('API Tests', () => {
             assert.equal(response.status, 200);
             assert.equal(response.body.order_id, sampleID);  // Expect returned object to have order_id of sampleID
             })
-    
+        it('GET/ORDERS/USER/:ID Retrieves an objects relating to user_ID', async () => {
+                const sampleID = Math.ceil(Math.random()*5);    //Currently accesses 1-5
+                
+                const response = await request(app)
+                    .get(`/api/orders/user/${sampleID}`)
+                    .set('Accept', 'application/json');
+                assert.equal(response.status, 200);
+                assert.isArray(response.body, true);
+                })
+            
+    //! Tests to be created:
+    //? POST/ORDERS/NEW Creates a new order
 
     })  // End of /ORDER tests
 

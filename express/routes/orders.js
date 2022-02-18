@@ -19,7 +19,8 @@ orderRouter.get('/:id', function(req, res, next) {
     if (error) {
       throw error
     }
-    res.status(200).json(results.rows)
+    let resp = results.rows[0];
+    res.status(200).json(resp);
   })
 });
 

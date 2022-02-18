@@ -12,7 +12,7 @@ var orderRouter = require('./routes/orders');
 var usersRouter = require('./routes/users');
 var inventoryRouter = require('./routes/inventory');
 var gamesRouter = require('./routes/games');
-
+var login = require('./routes/login');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,7 +37,7 @@ app.use('/api/orders', orderRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/inventory', inventoryRouter);
 app.use('/api/games', gamesRouter);
-
+app.use('/api/login', login.Router);
 
 
 // catch 404 and forward to error handler
