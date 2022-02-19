@@ -1,0 +1,28 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  border: 1px solid maroon;
+  
+}
+
+#nav {
+  display: flex;
+  justify-content: space-between;
+}
+#navleft ul{
+  display: flex;
+
+}
+#navleft li {
+  padding: 0 5vw;
+  list-style: none;
+}
+
+#navright{
+  margin-right: 2vw;
+}
+#navright button {
+  margin: 0 1vw;
+  padding: 10px 2vw;
+}

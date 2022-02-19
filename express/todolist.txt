@@ -1,2 +1,3 @@
 - implement bcrypt
 - check per user stuff for API requests (eg. only user 1 can see user 1 info)
+- logic for stock (can't go below 0 etc)
