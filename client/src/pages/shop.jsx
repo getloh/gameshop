@@ -1,9 +1,12 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom'
+import { db } from '../features/api/api';
 
 function Shop() {
+    // Runs on pageload
     useEffect(() => {
         console.log("load!")
+        db.getGameData();
         return () => {
             //not needed
         };
