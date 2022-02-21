@@ -1,19 +1,24 @@
 import React, {useEffect} from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {Link, useParams, useNavigate} from 'react-router-dom'
+import { store } from '../app/store';
 import { db } from '../features/api/api';
+import { addToCart, setStatus } from '../features/web/webSlice';
 
 
 
 function Itempage(props) {
     let urlParam = useParams(); // gets game_id from the URL
-    let game_id = urlParam.game_id;
+    let inv_id = urlParam.inventory_id;
     let state = useSelector(state => state.web.game)
     let navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    
     
     useEffect( () => {
-        db.getSingleGameData(game_id)
+
+        db.getSingleInventoryData(inv_id);
+        
         return () => {};
     }, []);
 
@@ -24,7 +29,12 @@ function Itempage(props) {
 
     const handleCartAdd = () => {
         const quant = document.getElementById('quantity').value;
-        
+        const cartItem = {
+            inventory_id: state.inventory_id,
+            quantity: quant,
+            price: state.price
+        }
+        dispatch(addToCart(cartItem));
     }
 
 
@@ -41,6 +51,9 @@ function Itempage(props) {
                 <div className="item-purchase urbox">
                     <button onClick={handleCartAdd} >Add to cart</button>
                     <input id="quantity" defaultValue="1" type="number" placeholder='quantity' />
+                    <p>Stock: {state.stock} </p>
+                    <p>Price: £{state.price} </p>
+                    <p>Platform: {state.platform}</p>
                 </div>
                 <div className="item-rating urbox">
                     <div className="item-rating-inner">Rating: {state.rating}</div>

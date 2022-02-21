@@ -16,6 +16,12 @@ export const setGameDetail = (json) => {
         payload: json
     }
 }
+export const setGameInventory = (array) => {
+    return {
+        type: 'web/setGameInventory',
+        payload: array
+    }
+}
 
 export const setStatus = (string) => {
     return {
@@ -40,21 +46,21 @@ export const setCartVis = (x) => {
 
 export const addToCart = (object) => {
     return {
-        type: 'user/addToCart',
+        type: 'web/addToCart',
         payload: object
     }
 }
 
 export const removeFromCart = (inventory_id) => {
     return {
-        type: 'user/removeFromCart',
+        type: 'web/removeFromCart',
         payload: inventory_id
     }
 }
 
 export const setFilter = (string) => {
     return {
-        type: 'user/setFilter',
+        type: 'web/setFilter',
         payload: string
     }
 }
@@ -100,6 +106,9 @@ const options = {
             state.filter = action.payload
         },
         setGameDetail:(state, action) => {
+            state.game = action.payload
+        },
+        setGameInventory: (state,action) => {
             state.game = action.payload
         }
 

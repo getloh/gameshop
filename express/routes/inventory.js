@@ -19,6 +19,23 @@ inventoryRouter.get('/', function(req, res, next) {
 
 });
 
+// Retrieves info relating to a single inventory_id
+inventoryRouter.get('/:id', function(req, res, next) {
+  pool.query(`
+  SELECT * FROM inventory 
+  LEFT JOIN games
+  ON inventory.game_id = games.game_id 
+  WHERE inventory_id = ${req.params.id}
+  `, (error, results) => {
+    if (error) {
+      throw error
+    }
+    let result = results.rows[0];
+    res.status(200).json(result);
+
+  })
+});
+
 // Retrieves array of inventory relating to game_id
 inventoryRouter.get('/game/:id', function(req, res, next) {
   pool.query(`SELECT * FROM inventory WHERE game_id = ${req.params.id} ORDER BY inventory_id ASC`, (error, results) => {

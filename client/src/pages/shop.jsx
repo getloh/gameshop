@@ -25,6 +25,11 @@ function Shop() {
             image={x.image}
             rating={x.rating}
             release={x.release}
+            platform={x.platform}
+            inventory_id={x.inventory_id}
+            stock={x.stock}
+            price={x.price}
+            discount={x.discount}
         /> )}
 
         {/* {state.games.map(x => <h1>{x.title}</h1>)} */}

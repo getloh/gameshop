@@ -16,6 +16,20 @@ gamesRouter.get('/',function(req, res, next) {
 
 });
 
+gamesRouter.get('/inv', function (req, res, next){
+  pool.query(`
+  SELECT games.game_id, games.title, games.release, games.rating, games.image, inventory.inventory_id, inventory.platform, inventory.stock, inventory.price, inventory.discount FROM games
+    LEFT JOIN inventory
+    ON games.game_id = inventory.game_id 
+    ORDER BY games.game_id ASC`, (error, results) => {
+    if (error) {
+      throw error
+    }
+    let resp = results.rows
+    res.status(200).json(resp);
+  })
+})
+
 // Retrieves detailed info on a single game_ID
 gamesRouter.get('/:id', function(req, res, next) {
   
