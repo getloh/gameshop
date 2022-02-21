@@ -4,6 +4,10 @@ import {Routes, Route} from 'react-router-dom'
 import Home from './pages/home';
 import Shop from './pages/shop';
 import Nav from './features/nav/nav';
+import Info from './pages/info'
+import Login from './pages/login';
+import Userdash from './pages/userdash'
+import Itempage from './pages/itempage';
 
 function App() {
   return (
@@ -13,9 +17,11 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/shop' element={<Shop />} />
-        {/* <Route path='/info' element={<Info />} />
+        <Route path='/shop/games/:game_id' element={<Itempage />} />
+        <Route path='/info' element={<Info />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/user' element={<Userdash />} /> */}
+        <Route path='/user' element={<Userdash />} />
+
       </Routes>
 
     </div>

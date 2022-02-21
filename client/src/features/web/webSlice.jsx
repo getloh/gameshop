@@ -9,6 +9,14 @@ export const setGames = (json) => {
         payload: json
     }
 }
+
+export const setGameDetail = (json) => {
+    return {
+        type: 'web/setGameDetail',
+        payload: json
+    }
+}
+
 export const setStatus = (string) => {
     return {
         type: 'web/setStatus',
@@ -30,13 +38,37 @@ export const setCartVis = (x) => {
     }
 }
 
+export const addToCart = (object) => {
+    return {
+        type: 'user/addToCart',
+        payload: object
+    }
+}
+
+export const removeFromCart = (inventory_id) => {
+    return {
+        type: 'user/removeFromCart',
+        payload: inventory_id
+    }
+}
+
+export const setFilter = (string) => {
+    return {
+        type: 'user/setFilter',
+        payload: string
+    }
+}
+
 //? reducer - initialState
 
 const initialState = {
     games: [],
+    game: {},
     status: '',
     error: '',
-    cartvis: false
+    cartvis: false,
+    cart: [],
+    filter: ''
 }
 
 //? reducer with switch, or toolkit createSlice with options
@@ -56,6 +88,19 @@ const options = {
         },
         setCartVis: (state, action) => {
             state.cartvis = !state.cartvis
+        },
+        addToCart:(state, action) => {
+            state.cart.push(action.payload)
+        },
+        removeFromCart:(state, action) => {
+            let index = state.cart.findIndex(cart => cart.inventory_id == action.payload);
+            state.cart.splice(index, 1);
+        },
+        setFilter:(state, action) => {
+            state.filter = action.payload
+        },
+        setGameDetail:(state, action) => {
+            state.game = action.payload
         }
 
     }

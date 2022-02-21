@@ -10,26 +10,7 @@ export const setUserinfo = (object) => {
     }
 }
 
-export const addToCart = (object) => {
-    return {
-        type: 'user/addToCart',
-        payload: object
-    }
-}
 
-export const removeFromCart = (inventory_id) => {
-    return {
-        type: 'user/removeFromCart',
-        payload: inventory_id
-    }
-}
-
-export const setFilter = (string) => {
-    return {
-        type: 'user/setFilter',
-        payload: string
-    }
-}
 
 
 // reducer - initialState
@@ -40,9 +21,8 @@ const initialState = {
         firstname: 'Guest',
         lastname: '',
         email: ''
-    },
-    cart: [],
-    filter: ''
+    }
+    
 
 }
 
@@ -54,17 +34,8 @@ const options = {
     reducers: {
         setUserInfo: (state, action) => {
             state.userinfo = action.payload
-        },
-        AddToCart:(state, action) => {
-            state.cart.push(action.payload)
-        },
-        RemoveFromCart:(state, action) => {
-            let index = state.cart.findIndex(cart => cart.inventory_id == action.payload);
-            state.cart.splice(index, 1);
-        },
-        SetFilter:(state, action) => {
-            state.filter = action.payload
         }
+
     }
 }
 
