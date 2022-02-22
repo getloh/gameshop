@@ -15,9 +15,10 @@ function Shopitem({game_id, title, release, rating, image, platform, inventory_i
             
             <div className="shopitem-right">
                 <h3>{title}</h3>
+                <p>{release}</p> 
                 <h5>{platform}</h5>
                 <h3>£{price}</h3>
-                <h4>{release}</h4> 
+
                 <p>{rating}</p>
             </div>
             

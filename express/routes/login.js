@@ -16,7 +16,7 @@ Router.post('/', function(req, res, next){
         res.cookie('session_id', session.generateId());
         res.cookie('email', req.body.email);
         res.cookie('user_id', results.rows[0].user_id);
-        res.status(200).send("password matches");
+        res.redirect('/loginok');
       }
       else {
         res.status(500).send("password does not appear to match")

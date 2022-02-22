@@ -15,11 +15,21 @@ function Shop() {
     });
 
   return (
-    <div id="shop">
-        <h1>This is Shop</h1>
-        <main id="shop-items-container"></main>
+    <div id="shop-page">
+    <h1>Games Shop</h1>
+      <div id="shop">
+        <nav id="shopfilter">
+          <h4>Filter:</h4>
+          <ul>
+            <li>test1</li>
+            <li>test2</li>
+            <li>test3</li>
+            <li>test4</li>
+          </ul>
+        </nav>
+        <main id="shop-items-container">
         {state.games.map(x => <Shopitem 
-            key={x.game_id}
+            key={x.inventory_id}
             game_id={x.game_id}
             title={x.title}
             image={x.image}
@@ -31,9 +41,11 @@ function Shop() {
             price={x.price}
             discount={x.discount}
         /> )}
+        </main>
 
         {/* {state.games.map(x => <h1>{x.title}</h1>)} */}
     </div>
+  </div>
 
   );
 }

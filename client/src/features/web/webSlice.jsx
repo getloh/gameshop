@@ -65,6 +65,13 @@ export const setFilter = (string) => {
     }
 }
 
+export const setCart = (json) => {
+    return {
+        type: 'web/setCart',
+        payload: json
+    }
+}
+
 //? reducer - initialState
 
 const initialState = {
@@ -101,6 +108,9 @@ const options = {
         removeFromCart:(state, action) => {
             let index = state.cart.findIndex(cart => cart.inventory_id == action.payload);
             state.cart.splice(index, 1);
+        },
+        setCart:(state, action) => {
+            state.cart = action.payload;
         },
         setFilter:(state, action) => {
             state.filter = action.payload

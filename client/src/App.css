@@ -2,17 +2,35 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  border: 1px solid maroon;
+  /* border: 1px solid maroon; */
   
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button{
+  cursor: pointer;
+}
+/* 
+NAV / STATUS
+*/
+
 #nav {
+
   display: flex;
   justify-content: space-between;
-  background-color: rgb(224, 224, 224);
+  background-color: rgb(66, 66, 66);
+  color: white;
+  height: 40px;
 }
 #navleft ul{
   display: flex;
+  align-items: center;
+  margin-top: 5px;
+  padding: 2px;
 
 }
 #navleft li {
@@ -26,30 +44,93 @@
 #navright button {
   margin: 0 1vw;
   padding: 10px 2vw;
+  background-color: rgb(66, 66, 66);
+  border: 1px solid white;
+  color: white;
 }
 
+#status {
+  position: absolute;
+  left: 50%;
+  top: 90%;
+  transform: translate(-50%,-90%);
+  width: 40vw;
+  padding: 3vh 0;
+  text-align: center;
+  background-color: rgba(167, 230, 255, 0.801);
+  border-radius: 10px;
+}
 
+/* 
+CART
+*/
+
+
+#cart {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%,-30%);
+  width: 75vw;
+  height: 60vh;
+  background-color:rgba(243, 243, 243, 0.925);
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#cart-top {
+  display: flex;
+  justify-content: space-between;
+}
+#cart-top button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  font-weight: bold;
+  font-size: 2rem;
+}
 
 /* 
 Shop
 */
 #shop {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+}
+#shop-page h1 {
+  margin: 10px 30px;
+}
+#shopfilter {
+  width: 100px;
+  margin: 10px 15px;
+}
+#shopfilter li{
+  list-style: none;
 }
 
 #shop-items-container {
+  margin-top: 20px;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .shopitem {
-  width: 400px;
+  max-width: 400px;
+  width: 22vw;
+  min-width: 250px;
   height: 150px;
   overflow: hidden;
-  margin: 10px;
+  margin: 2px;
   display: flex;
+  background-color: rgb(245, 245, 245);
+  
+  padding: 5px 3px;
+  border-radius: 10px;
+  
 }
+
 .shopitem-left {
   width: 200px;
   display: flex;
@@ -64,7 +145,7 @@ Shop
   width: auto;
   max-height: 150px;
   max-width: 180px;
-  overflow: hidden;
+
   object-fit: contain;
 }
 
@@ -99,4 +180,27 @@ Item Page
 }
 .urbox{
   min-height: 100px;
+}
+
+
+/* 
+Login page
+*/
+
+#login-page {
+  margin: 15vh 20vw;
+  
+}
+
+#login-page form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+#login-page label {
+  font-size: 1.5rem;
+}
+#login-page input {
+  margin: 1vh 0;
+  height: 3rem;
 }

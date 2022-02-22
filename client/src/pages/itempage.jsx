@@ -32,9 +32,17 @@ function Itempage(props) {
         const cartItem = {
             inventory_id: state.inventory_id,
             quantity: quant,
-            price: state.price
+            title: state.title,
+            platform: state.platform,
+            price: state.price,
+            discount: state.discount,
+            image: state.image,
+            game_id: state.game_id
         }
         dispatch(addToCart(cartItem));
+        let cart = store.getState().web.cart;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        dispatch(setStatus("Added to Cart!"));
     }
 
 
@@ -50,6 +58,7 @@ function Itempage(props) {
             <div className="item-upper-right">
                 <div className="item-purchase urbox">
                     <button onClick={handleCartAdd} >Add to cart</button>
+                    <label htmlFor="quantity">Quantity</label>
                     <input id="quantity" defaultValue="1" type="number" placeholder='quantity' />
                     <p>Stock: {state.stock} </p>
                     <p>Price: £{state.price} </p>
