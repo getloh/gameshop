@@ -15,10 +15,8 @@ function Itempage(props) {
     const dispatch = useDispatch();
     
     
-    useEffect( () => {
-
+    useEffect( () => {  // Grabs item data on pageload
         db.getSingleInventoryData(inv_id);
-        
         return () => {};
     }, []);
 
@@ -40,6 +38,7 @@ function Itempage(props) {
             game_id: state.game_id
         }
         dispatch(addToCart(cartItem));
+        
         let cart = store.getState().web.cart;
         localStorage.setItem("cart", JSON.stringify(cart));
         dispatch(setStatus("Added to Cart!"));

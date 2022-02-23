@@ -3,15 +3,12 @@ import {createSlice} from '@reduxjs/toolkit';
 
 // actions - basic functions which return type and payload
 
-export const setUserinfo = (object) => {
+export const setUserInfo = (object) => {
     return {
-        type: 'user/setUserinfo',
+        type: 'user/setUserInfo',
         payload: object
     }
 }
-
-
-
 
 // reducer - initialState
 
@@ -22,7 +19,6 @@ const initialState = {
         lastname: '',
         email: ''
     }
-    
 
 }
 
@@ -34,6 +30,7 @@ const options = {
     reducers: {
         setUserInfo: (state, action) => {
             state.userinfo = action.payload
+            console.log("payload dropped?")
         }
 
     }

@@ -1,10 +1,25 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom'
 import { SERVER } from '../features/api/api';
+import { setStatus } from '../features/web/webSlice';
 
 function Login() {
+  const dispatch = useDispatch();
+
+  let params = (new URL(document.location)).searchParams;
+  let auth = params.get("auth");
 
   let loginURL = SERVER + "/api/login";
+
+  useEffect(() => {
+    if (auth === "fail"){
+      dispatch(setStatus("Login Failed - Wrong credentials?"))
+    }
+    return () => {
+    };
+  }, []);
 
   return (
     <div id="login-page">
@@ -19,6 +34,7 @@ function Login() {
               <input type="submit" value="submit" />
             </form>
         </section>
+
     </div>
 
   );

@@ -19,10 +19,19 @@ function CartItem({game_id, title, image, platform, inventory_id, quantity, pric
     return (
 
         
-        <div>
-        <Link to={`/shop/games/${inventory_id}`}>{inventory_id}{title}</Link>
+        <div id="cart-item">
+            <div id="cart-item-left">
+                <img src={image} alt={title} />
+                <Link to={`/shop/games/${inventory_id}`}><h4>{title}</h4></Link>
+                <h4>{platform}</h4>
+            </div>
         
-        <button onClick={handleRemove}>Remove From Cart</button>
+            <div id="cart-item-right">
+                <h4 >x{quantity}</h4>
+                <h4 >£{price}</h4>
+                <button onClick={handleRemove}>Remove</button>
+            </div>
+        
         </div>    
         
 

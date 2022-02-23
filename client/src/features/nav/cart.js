@@ -20,6 +20,7 @@ function Cart() {
             <button onClick={handleClose}> X </button>
             </div>
             <div id="cart-main">
+            {state.web.cart.length === 0 ? <p>You cart is empty</p>: null}
                 {state.web.cart.map(x => <CartItem 
                     key={x.inventory_id}
                     game_id={x.game_id}
@@ -29,9 +30,14 @@ function Cart() {
                     inventory_id={x.inventory_id}
                     price={x.price}
                     discount={x.discount}
+                    quantity={x.quantity}
                 />)}
             </div>
-            <div id="cart-bottom"></div>
+            <div id="cart-bottom">
+            {state.web.cart.length !== 0 ? <p>Total £{state.web.cart.map(x => Number(x.price)).reduce((x,y)=> x + y).toFixed(2)}</p>: null}
+
+                <button>Checkout</button>
+            </div>
 
 
 

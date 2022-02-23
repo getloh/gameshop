@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <Nav></Nav>
-
+      <div id="maincontent">
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/shop' element={<Shop />} />
@@ -23,7 +23,7 @@ function App() {
         <Route path='/user' element={<Userdash />} />
 
       </Routes>
-
+      </div>
     </div>
 
   );

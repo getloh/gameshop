@@ -1,6 +1,7 @@
 import { store } from "../../app/store.js";
 import { setGames, setError, setStatus, setGameDetail, setGameInventory } from "../web/webSlice.jsx";
 import { useSelector } from "react-redux";
+import { setUserInfo } from "../user/userSlice";
 
 
 
@@ -52,6 +53,23 @@ export const  db = {
             console.log(error); 
           }
     },
+
+    async getUserData (user_id) {
+      try {
+          const response = await fetch(`${SERVER}/api/users/${user_id}`, {
+            credentials: 'include'
+          });
+          if (response.ok) {
+              const jsonResponse = await response.json();
+              store.dispatch(setUserInfo(jsonResponse));
+              console.log("userdata grabbed")
+            return jsonResponse;
+          }
+          throw new Error('Request failed!');
+        } catch (error) {
+          console.log(error); 
+        }
+  },
 
 
 } // end of db
