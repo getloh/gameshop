@@ -64,7 +64,7 @@ function Nav() {
             </ul>
         </div>
         <div id="navright">
-          <button onClick={test}></button>
+          {/* <button onClick={test}></button> */}
             <button id="cart-button" onClick={toggleCartVis}>{state.web.cart.length > 0 || state.web.cart.length == null ? `Cart: ${state.web.cart.length}` : "Empty Cart"}</button>
             {state.user.userinfo.user_id !== -1 ?  <Link to='/userdash'><button id="login-button">Hi, {state.user.userinfo.firstname}</button></Link> : <Link to='/login'><button id="login-button">Login</button></Link>}
         </div>

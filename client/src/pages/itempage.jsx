@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import {Link, useParams, useNavigate} from 'react-router-dom'
 import { store } from '../app/store';
 import { db } from '../features/api/api';
-import { addToCart, setStatus } from '../features/web/webSlice';
+import { addToCart, removeFromCart, setStatus } from '../features/web/webSlice';
 
 
 
 function Itempage(props) {
     let urlParam = useParams(); // gets game_id from the URL
     let inv_id = urlParam.inventory_id;
-    let state = useSelector(state => state.web.game)
+    let state = useSelector(state => state.web)
     let navigate = useNavigate();
     const dispatch = useDispatch();
     
@@ -27,18 +27,28 @@ function Itempage(props) {
 
     const handleCartAdd = () => {
         const quant = document.getElementById('quantity').value;
-        const cartItem = {
-            inventory_id: state.inventory_id,
-            quantity: quant,
-            title: state.title,
-            platform: state.platform,
-            price: state.price,
-            discount: state.discount,
-            image: state.image,
-            game_id: state.game_id
+        let newQuant = null;
+        let preExist = state.cart.find(x => x.inventory_id === state.game.inventory_id)
+        if (preExist){
+            console.log("duplicate found")
+           newQuant = Number(preExist.quantity) + Number(quant);
+           dispatch(removeFromCart(state.game.inventory_id));
         }
-        dispatch(addToCart(cartItem));
+
+        const cartItem = {
+            inventory_id: state.game.inventory_id,
+            quantity: newQuant || quant,
+            title: state.game.title,
+            platform: state.game.platform,
+            price: state.game.price,
+            discount: state.game.discount,
+            image: state.game.image,
+            game_id: state.game.game_id
+        }
         
+
+
+        dispatch(addToCart(cartItem));
         let cart = store.getState().web.cart;
         localStorage.setItem("cart", JSON.stringify(cart));
         dispatch(setStatus("Added to Cart!"));
@@ -49,29 +59,29 @@ function Itempage(props) {
     
     <div id="itempage">
         <button id="item-backbutton" onClick={goBack}>Back</button>
-        <h1>{state.title}</h1>
+        <h1>{state.game.title}</h1>
 
         <div className="item-upper">
-            <img src={state.image} alt="" />
+            <img src={state.game.image} alt="" />
 
             <div className="item-upper-right">
                 <div className="item-purchase urbox">
                     <button onClick={handleCartAdd} >Add to cart</button>
                     <label htmlFor="quantity">Quantity</label>
                     <input id="quantity" defaultValue="1" type="number" placeholder='quantity' />
-                    <p>Stock: {state.stock} </p>
-                    <p>Price: £{state.price} </p>
-                    <p>Platform: {state.platform}</p>
+                    <p>Stock: {state.game.stock} </p>
+                    <p>Price: £{state.game.price} </p>
+                    <p>Platform: {state.game.platform}</p>
                 </div>
                 <div className="item-rating urbox">
-                    <div className="item-rating-inner">Rating: {state.rating}</div>
-                    <p>Votes: {state.votes}</p>
+                    <div className="item-rating-inner">Rating: {state.game.rating}</div>
+                    <p>Votes: {state.game.votes}</p>
                 </div>
             </div>
         </div>
 
         <section className="item-lower">
-            <p>{state.info}</p>
+            <p>{state.game.info}</p>
         </section>
     </div>
 
