@@ -34,7 +34,7 @@ function Cart() {
                 />)}
             </div>
             <div id="cart-bottom">
-            {state.web.cart.length !== 0 ? <p>Total £{state.web.cart.map(x => Number(x.price)).reduce((x,y)=> x + y).toFixed(2)}</p>: null}
+            {state.web.cart.length !== 0 ? <p>Total £{state.web.cart.map(x =>(Number(x.price) - (Number(x.price)*(Number(x.discount)/100)) )* Number(x.quantity)).reduce((x,y)=> x + y).toFixed(2)}</p>: null}
 
                 <button>Checkout</button>
             </div>

@@ -46,6 +46,10 @@ function Itempage(props) {
             game_id: state.game.game_id
         }
         
+        if (newQuant > state.game.stock || quant > state.game.stock) {
+            dispatch(setStatus("Unable to add to cart - Insufficient Stock"));
+            return;
+        }
 
 
         dispatch(addToCart(cartItem));

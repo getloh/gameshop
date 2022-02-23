@@ -20,10 +20,13 @@ function Shopitem({game_id, title, release, rating, image, platform, inventory_i
         <div id={game_id} className="shopitem">
             <div className="shopitem-left">
                 <img src={image} alt="" />
+
+                
             </div>
             
+            <h3>{title}</h3>
             <div className="shopitem-right">
-                <h3>{title}</h3>
+                
                 <p>{release}</p> 
                 <h5>{platform}</h5>
                 {discPrice ? <div> 
