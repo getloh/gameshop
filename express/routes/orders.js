@@ -68,7 +68,7 @@ orderRouter.post('/new', async function(req, res, next) {
     })
   }
 
-  await new Promise(resolve => setTimeout(resolve, 500));
+  await new Promise(resolve => setTimeout(resolve, 1000));
   pool.query(`SELECT * FROM orders WHERE user_id = ${user.user_id} ORDER BY order_id DESC`, (error, results) => {
     if (error) {
       throw error

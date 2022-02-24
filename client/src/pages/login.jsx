@@ -17,11 +17,14 @@ function Login() {
     if (auth === "fail"){
       dispatch(setStatus("Login Failed - Wrong credentials?"))
     }
+    if (auth === "new"){
+      dispatch(setStatus("Account created - You may now login"))
+    }
     return () => {
     };
   }, []);
 
-  
+
 
   return (
     <div id="login-page">
@@ -36,7 +39,8 @@ function Login() {
               <input type="submit" value="submit" />
             </form>
         </section>
-
+        <br /><br /><br />
+      <Link to="/signup"><p style={{textAlign: "center"}}>No account? <br /> Sign up!</p></Link>
     </div>
 
   );

@@ -388,3 +388,25 @@ Orders
   margin: 0 10px;
 
 }
+
+/* 
+Orders
+*/
+
+#signup-page {
+  margin: 15vh 20vw;
+  
+}
+
+#signup-page form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+#signup-page label {
+  font-size: 1.5rem;
+}
+#signup-page input {
+  margin: 1vh 0;
+  height: 3rem;
+}

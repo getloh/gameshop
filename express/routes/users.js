@@ -2,11 +2,13 @@ var express = require('express');
 var userRouter = express.Router();
 const db = require('./database');
 const pool = db.pool;
-const session = require('./login');
+const login = require('./login');
+const dbPrivate = require('./database-private');
 
+const SERVER = "http://localhost:3000"
 
 /* Retrieve information relating to the logged in user */
-userRouter.get('/:id', session.authentication, function(req, res, next) {
+userRouter.get('/:id', login.authentication, function(req, res, next) {
   pool.query(`SELECT user_id, firstname, lastname, email, address, postcode FROM users WHERE user_id = ${req.params.id}`, (error, results) => {
     if (error) {
       throw error
@@ -17,7 +19,7 @@ userRouter.get('/:id', session.authentication, function(req, res, next) {
 });
 
 // Amend user information
-userRouter.put('/:id', session.authentication, async function (req, res, next){
+userRouter.put('/:id', login.authentication, async function (req, res, next){
 
   if (req.body.firstname){
     pool.query(`UPDATE users SET firstname = $1 WHERE user_id = $2`,[req.body.firstname, req.params.id], (error, results) => {
@@ -55,7 +57,7 @@ userRouter.put('/:id', session.authentication, async function (req, res, next){
 })
 
 // For creation of new users, takes JSON, returns JSON
-userRouter.post ('/new', function (req, res, next){
+userRouter.post ('/new', async function (req, res, next){
   console.log(`${req.body.firstname}, ${req.body.lastname}, ${req.body.email}, ${req.body.password}, ${req.body.address},${req.body.postcode}`)
   
   pool.query(`
@@ -65,13 +67,21 @@ userRouter.post ('/new', function (req, res, next){
       throw error
     }
     console.log(`New user created successfully - ${req.body.firstname} ${req.body.lastname}`)
-  })
 
+
+
+  })
+  await new Promise(resolve => setTimeout(resolve, 1000));
   pool.query(`SELECT user_id, firstname, lastname, email, address, postcode FROM users WHERE email = $1`,[req.body.email], (error, results) => {
     if (error) {
       throw error
     }
-    res.status(200).json(results.rows)
+
+    res.cookie('session_id', dbPrivate.generateId());
+    res.cookie('email', req.body.email);
+    res.cookie('user_id', results.rows[0].user_id);
+    res.redirect(`${SERVER}/shop?message=Account%20Created%20and%20auto%20logged%20in`);
+
   })
 })
 
