@@ -3,7 +3,6 @@
   padding: 0px;
   box-sizing: border-box;
   /* border: 1px solid maroon; */
-  
 }
 html {
   overflow-y: overlay;
@@ -29,6 +28,10 @@ h1 {
 
 #maincontent {
   margin: 60px 10vw 20px 10vw;
+}
+
+.center {
+  text-align: center;
 }
 
 
@@ -104,6 +107,7 @@ CART
   border: 1px solid black;
   border-radius: 10px;
   padding: 20px;
+  
 }
 
 #cart-top {
@@ -175,6 +179,9 @@ CART
 
 }
 
+.test {
+color: rgb(23, 49, 196)
+}
 /* 
 Shop
 */
@@ -342,4 +349,42 @@ Payment Page
   border-radius: 10px;
   padding: 10px;
   font-size: 0.9rem;
+}
+
+/* 
+User Page (Userdash)
+*/
+
+#userpage-main {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 3vh 0;
+}
+
+.userpagebutton{
+  width: 35vw;
+  height: 20vh;
+  margin: 5vh 2vw 0;
+  background-color: rgb(240, 240, 240);
+  padding: 3vh 5vw;
+  border-radius: 10px;
+  border: 1px solid grey
+}
+
+/* 
+Orders
+*/
+
+#order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px;
+  background-color: rgb(235, 235, 235);
+  height: 7vh;
+
+}
+#order-item p {
+  margin: 0 10px;
+
 }

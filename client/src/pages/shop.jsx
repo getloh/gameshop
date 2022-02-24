@@ -3,19 +3,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import {Link} from 'react-router-dom'
 import { db } from '../features/api/api';
 import Shopitem from '../features/shop/Shopitem';
-import { setFilter } from '../features/web/webSlice';
+import { setFilter, setStatus } from '../features/web/webSlice';
+
 
 function Shop() {
 
     const dispatch = useDispatch();
-
     const state = useSelector(state => state.web);
+    let params = (new URL(document.location)).searchParams;
+    let message = params.get("message");
+
     // Runs on pageload
     useEffect(() => {   // If the games data array hasn't already been loaded, load it.
         if (state.games[1] === undefined){
         db.getGameData();
         }
     });
+
+    useEffect(() => { // if params ?message=<something> , set status
+      if (message !== null){
+        dispatch(setStatus(`${message}`))
+      }
+      return () => {
+      };
+    }, []);
 
     const getFilter = (filter) => {
       let gamesList = state.games;

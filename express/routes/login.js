@@ -4,7 +4,13 @@ const db = require('./database');
 const pool = db.pool;
 const session = require('./database-private');
 
+const SERVER = "http://localhost:3000"
+
 Router.post('/', function(req, res, next){
+
+    if (!req.body.password ){
+      throw new Error("Credentials invalid")
+    }
     // const user = {email: req.body.email, password: req.body.password};
     pool.query('SELECT * FROM users WHERE email = $1;',[req.body.email], (error, results) => {
       console.log(`database password says ${results.rows[0].password}`);
@@ -16,10 +22,10 @@ Router.post('/', function(req, res, next){
         res.cookie('session_id', session.generateId());
         res.cookie('email', req.body.email);
         res.cookie('user_id', results.rows[0].user_id);
-        res.redirect('http://localhost:3000/shop');
+        res.redirect(`${SERVER}/shop?message=Logged%20in`);
       }
       else {
-        res.redirect('http://localhost:3000/login?auth=fail');
+        res.redirect(`${SERVER}/login?auth=fail`);
         res.status(500);
       };
     })
@@ -27,7 +33,6 @@ Router.post('/', function(req, res, next){
 
 // authentication middleware
 const authentication = (req, res, next) => {
-  console.log(req.cookies);
     if (req.cookies.session_id === undefined){
       res.status(403).send("you need to log in for this action.");
       throw error;

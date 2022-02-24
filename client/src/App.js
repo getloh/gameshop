@@ -11,6 +11,8 @@ import Itempage from './pages/itempage';
 import Checkout from './pages/checkout';
 import Payment from './pages/payment';
 import Notfound from './pages/notfound';
+import Userorders from './pages/userorders';
+import Signup from './pages/signup';
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
         <Route path='/userdash' element={<Userdash />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/checkout/pay' element={<Payment />} />
+        <Route path='/userorders' element={<Userorders />} />
+        <Route path='/signup' element={<Signup />} />
+        {/* <Route path='/user/amend' element={<Useramend />} /> */}
         <Route path='*' element={<Notfound />} />
       </Routes>
       </div>

@@ -10,6 +10,13 @@ export const setUserInfo = (object) => {
     }
 }
 
+export const setOrderHistory = (array) => {
+    return {
+        type: 'user/setOrderHistory',
+        payload: array
+    }
+}
+
 // reducer - initialState
 
 const initialState = {
@@ -20,7 +27,8 @@ const initialState = {
         email: '',
         address: '',
         postcode: ''
-    }
+    },
+    order_history: []
 
 }
 
@@ -32,8 +40,11 @@ const options = {
     reducers: {
         setUserInfo: (state, action) => {
             state.userinfo = action.payload
-            console.log("payload dropped?")
+        },
+        setOrderHistory: (state, action) => {
+            state.order_history = action.payload
         }
+
 
     }
 }

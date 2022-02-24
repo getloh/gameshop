@@ -1,15 +1,15 @@
 import { store } from "../../app/store.js";
 import { setGames, setError, setStatus, setGameDetail, setGameInventory } from "../web/webSlice.jsx";
 import { useSelector } from "react-redux";
-import { setUserInfo } from "../user/userSlice";
-
+import { setUserInfo, setOrderHistory } from "../user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 
 export const SERVER = "http://localhost:8000"
 
 
 export const  db = {
-    
+
 
     async getGameData () {  // Gets all game data - used in /SHOP
         try {
@@ -70,6 +70,49 @@ export const  db = {
           console.log(error); 
         }
   },
+
+  async postOrder (object) {
+    try {
+      const response = await fetch(`${SERVER}/api/orders/new`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(object)
+      });
+      if(response.ok){
+        const jsonResponse = await response.json();
+        store.dispatch(setOrderHistory(jsonResponse));
+
+        window.location.replace("/shop?message=Order%20Recieved");  // Redirect
+        return jsonResponse;
+      }
+      throw new Error('Request failed!');
+    } catch(error) {
+      console.log(error);
+    }
+
+  },
+
+  async getUserOrders (user_id) {
+    try {
+        const response = await fetch(`${SERVER}/api/orders/user/${user_id}`, {
+          credentials: 'include'
+        });
+        if (response.ok) {
+            const jsonResponse = await response.json();
+            store.dispatch(setOrderHistory(jsonResponse));
+          return jsonResponse;
+        }
+        throw new Error('Request failed!');
+      } catch (error) {
+        console.log(error); 
+      }
+},
+  
+
+
 
 
 } // end of db

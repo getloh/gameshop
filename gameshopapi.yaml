@@ -22,20 +22,19 @@ paths:
               examples:
                 Array of order information objects:
                   value:
-                    orders:
-                      - user_id: 1
-                        invoice_id: 3
-                        inventory_id: 28
-                        quantity: 1
-                        dispatched: true
-                        payment: VISA
-                      - user_id: 3
-                        invoice_id: 4
-                        inventory_id: 2
-                        quantity: 1
-                        dispatched: true
-                        payment: VISA
-                      - ...
+                    - user_id: 1
+                      order_id: 3
+                      inventory_id: 28
+                      quantity: 1
+                      status: dispatched
+                      payment: VISA
+                    - user_id: 3
+                      order_id: 4
+                      inventory_id: 2
+                      quantity: 1
+                      status: dispatched
+                      payment: VISA
+                    - ...
         default:
           description: Default error sample response
       tags:
@@ -62,13 +61,11 @@ paths:
               examples:
                 Single order response:
                   value:
-                    order:
-                      order_id: 1
-                      invoice_id: 3
-                      inventory_id: 28
-                      quantity: 1
-                      dispatched: true
-                      payment: VISA
+                    order_id: 3
+                    inventory_id: 28
+                    quantity: 1
+                    status: dispatched
+                    payment: VISA
         default:
           description: Default error sample response
       tags:
@@ -111,20 +108,19 @@ paths:
               examples:
                 Array of order information objects:
                   value:
-                    orders:
-                      - user_id: 1
-                        invoice_id: 3
-                        inventory_id: 28
-                        quantity: 1
-                        dispatched: true
-                        payment: VISA
-                      - user_id: 1
-                        invoice_id: 5
-                        inventory_id: 7
-                        quantity: 2
-                        dispatched: true
-                        payment: VISA
-                      - ...
+                    - user_id: 1
+                      order_id: 3
+                      inventory_id: 28
+                      quantity: 1
+                      status: dispatched
+                      payment: VISA
+                    - user_id: 1
+                      order_id: 5
+                      inventory_id: 7
+                      quantity: 2
+                      status: dispatched
+                      payment: VISA
+                    - ...
       parameters:
         - name: id
           in: path
@@ -139,7 +135,7 @@ paths:
     description: Generates new orders
     post:
       summary: New order creation
-      description: Creates a new order, posts the data to SQL
+      description: Creates a new order, posts the data to SQL - Takes the userinfo state, and cart array state as JSON. Returns JSON of user's previous orders.
       operationId: post_order
       requestBody:
         description: A new order object
@@ -148,21 +144,34 @@ paths:
             schema:
               $ref: '#/components/schemas/Order'
       responses:
-        '200':
-          description: response
+        
+        default:
+          description: Default error sample response
           content:
             application/json:
               examples:
-                Response of successful creation of invoice:
-                  value:
-                    user_id: 5
-                    invoice_id: 29
-                    inventory_id: 30
-                    quantity: 1
-                    dispatched: false
-                    payment: VISA
-        default:
-          description: Default error sample response
+                JSON:
+                  value: |-
+                    [
+                        {
+                            "user_id": 8,
+                            "order_id": 8,
+                            "inventory_id": 4,
+                            "quantity": 1,
+                            "status": null,
+                            "payment": "VISA 1234567812345678",
+                            "order_date": "2022-02-24T00:00:00.000Z"
+                        },
+                        {
+                            "user_id": 8,
+                            "order_id": 7,
+                            "inventory_id": 3,
+                            "quantity": 1,
+                            "status": null,
+                            "payment": "VISA 1234567812345678",
+                            "order_date": "2022-02-24T00:00:00.000Z"
+                        }
+                    ]
       tags:
         - Order information
   /users/{id}:
@@ -174,7 +183,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: The id of the order.
+          description: The id of the user.
           required: true
           schema:
             type: integer
@@ -214,6 +223,8 @@ paths:
             schema:
               $ref: '#/components/schemas/User'
       responses:
+        '202':
+          description: request recieved
         default:
           description: Default error sample response
       tags:
@@ -280,7 +291,102 @@ paths:
       tags:
         - Inventory
   /inventory/{id}:
-    summary: Retrieves array of games relating to game_id
+    summary: Finds all relevant data on an inventory ID
+    get:
+      summary: Gets all database data on a single inventory ID
+      description: ''
+      operationId: get_Single_inventory
+      parameters:
+        - name: id
+          in: path
+          description: The inventory_ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                JSON:
+                  value: |-
+                    {
+                        "inventory_id": 2,
+                        "title": "Zelda: Link to the past",
+                        "platform": "SNES",
+                        "stock": 2,
+                        "game_id": 2,
+                        "release": 1991,
+                        "info": "The Legend of Zelda: A Link to the Past is an action-adventure game developed and published by Nintendo for the Super Nintendo Entertainment System.",
+                        "rating": 10,
+                        "votes": 1,
+                        "image": "https://upload.wikimedia.org/wikipedia/en/2/21/The_Legend_of_Zelda_A_Link_to_the_Past_SNES_Game_Cover.jpg"
+                    }
+      tags:
+        - Inventory
+  /games:
+    summary: All games information
+    get:
+      summary: Retrieve all games info
+      description: Gets a basic array of game objects, does not include all details
+      operationId: get_games
+      responses:
+        '200':
+          description: Basic array of game objects
+          content:
+            application/json:
+              examples:
+                Basic Array of game objects:
+                  value:
+                    - game_id: 2
+                      title: Tony Hawks Pro Skater 2
+                      release: 1999
+                      rating: 8
+                      image: http://picture.goes/here
+                    - game_id: 3
+                      title: Dave Mirra's BMX
+                      release: 2001
+                      rating: 5
+                      image: http://picture.goes/here
+        default:
+          description: Default error sample response
+      tags:
+        - Games
+  /games/{id}:
+    summary: Relating to single game information
+    get:
+      summary: Retrieves detailed information on a single game_id
+      description: ''
+      operationId: get_single_game
+      parameters:
+        - name: id
+          in: path
+          description: The id of the game.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Single game information
+          content:
+            application/json:
+              examples:
+                Example game detailed info:
+                  value:
+                    game_id: 2
+                    title: Tony Hawks Pro Skater 2
+                    release: 1999
+                    info: long paragraph about the game goes here
+                    rating: 8
+                    votes: 285
+                    image: http://picture.goes/here
+        default:
+          description: Default error sample response
+      tags:
+        - Games
+  /inventory/game/{id}:
+    summary: For retrieval of inventory items relating to gameid
     get:
       summary: Retrieves array of inventory relating to game_id
       description: ''
@@ -300,97 +406,63 @@ paths:
               examples:
                 Array of game inventory relating to game_id:
                   value:
-                    inventory:
-                      - inventory_id: 201
-                        title: max payne
-                        platform: PS2
-                        stock: 2
-                        game_id: 31
-                      - inventory_id: 229
-                        title: max payne
-                        platform: xbox
-                        stock: 1
-                        game_id: 31
-                    ...: null
+                    - inventory_id: 201
+                      title: max payne
+                      platform: PS2
+                      stock: 2
+                      game_id: 31
+                    - inventory_id: 229
+                      title: max payne
+                      platform: xbox
+                      stock: 1
+                      game_id: 31
         default:
           description: Default error sample response
       tags:
         - Inventory
-    put:
-      summary: Updates stock count of item relating to Inventory_id
+  /login:
+    summary: Relating to user login functions
+    post:
+      summary: Send and authenticate login details, returns cookies
       description: ''
-      operationId: update_inventory_stock
-      parameters:
-        - name: id
-          in: path
-          description: Inventory_id relating to the product
-          required: true
-          schema:
-            type: integer
+      operationId: login_check
       responses:
         default:
           description: Default error sample response
       tags:
-        - Inventory
-  /games:
-    summary: All games information
+        - Login
+  /games/inv:
+    summary: query combining all games and inventories
     get:
-      summary: Retrieve all games info
-      description: Gets a basic array of game objects, does not include all details
-      operationId: get_games
+      summary: Retrieve games data and stock info
+      description: ''
+      operationId: get_gamesinv
       responses:
-        '200':
-          description: Basic array of game objects
+        default:
+          description: Default error sample response
           content:
             application/json:
               examples:
-                Basic Array of game objects:
+                JSON response:
                   value:
-                    games:
-                      - game_id: 2
-                        title: Tony Hawks Pro Skater 2
-                        release: 1999
-                        rating: 8
-                        image: http://picture.goes/here
-                      - game_id: 3
-                        title: Dave Mirra's BMX
-                        release: 2001
-                        rating: 5
-                        image: http://picture.goes/here
-        default:
-          description: Default error sample response
-      tags:
-        - Games
-  /games/{id}:
-    summary: Relating to single game information
-    get:
-      summary: Retrieves detailed information on a single game_id
-      description: ''
-      operationId: get_single_game
-      parameters:
-      - name: id
-        in: path
-        description: 'The id of the game.'
-        required: true
-        schema:
-          type: integer
-      responses:
-        '200':
-          description: Single game information
-          content:
-            application/json:
-              examples:
-                Example game detailed info:
-                  value: 
-                    {game_id: 2,
-                    title: Tony Hawks Pro Skater 2,
-                    release: 1999,
-                    info: long paragraph about the game goes here,
-                    rating: 8,
-                    votes: 285,
-                    image: http://picture.goes/here}
-        default:
-          description: Default error sample response
+                    - game_id: 1
+                      title: Devil may cry
+                      release: 2001
+                      rating: 8
+                      image: >-
+                        https://upload.wikimedia.org/wikipedia/en/1/1e/DMC1FrontCover.jpg
+                      inventory_id: 1
+                      platform: PS2
+                      stock: 25
+                    - game_id: 2
+                      title: 'Zelda: Link to the past'
+                      release: 1991
+                      rating: 10
+                      image: >-
+                        https://upload.wikimedia.org/wikipedia/en/2/21/The_Legend_of_Zelda_A_Link_to_the_Past_SNES_Game_Cover.jpg
+                      inventory_id: 2
+                      platform: SNES
+                      stock: 2
       tags:
         - Games
 components:
@@ -398,14 +470,31 @@ components:
     Order:
       type: object
       properties:
-        user_id:
-          type: integer
-        inventory_id:
-          type: integer
-        quantity:
-          type: integer
-        payment:
-          type: string
+        userinfo:
+          type: object
+          properties:
+            user_id:
+              type: string
+            firstname:
+              type: string
+            lastname:
+              type: string
+            email:
+              type: string
+            address:
+              type: string
+            postcode:
+              type: string
+        cart:
+          type: array
+          items:
+            type: object
+            properties:
+              inventory_id:
+                type: string
+              quantity:
+                type: string
+
       xml:
         name: Order
     User:

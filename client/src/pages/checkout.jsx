@@ -15,7 +15,7 @@ function Checkout() {
 
   return (
     <div>
-        <h1>This is Checkout</h1>
+        <h1>Checkout</h1>
         <section id="checkout">
 
         <CartInner id="checkout-main"/>

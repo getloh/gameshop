@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import { SERVER } from '../features/api/api';
 import { setStatus } from '../features/web/webSlice';
 
-function Login() {
+function Signup() {
   const dispatch = useDispatch();
 
   let params = (new URL(document.location)).searchParams;
@@ -20,8 +20,6 @@ function Login() {
     return () => {
     };
   }, []);
-
-  
 
   return (
     <div id="login-page">
@@ -42,4 +40,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

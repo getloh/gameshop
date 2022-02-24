@@ -1,15 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom'
 import CartItem from '../features/nav/cartitem';
 import { useEffect } from 'react';
 import { db } from '../features/api/api';
 import Cart from '../features/nav/cart';
 import CartInner from '../features/nav/cartinner';
+import { setCart } from '../features/web/webSlice';
+
+
 
 function PaymentMain() {
     const state = useSelector(state => state);
-    const cartTotal = <p style={{fontWeight: "bold"}}>Total £{state.web.cart.map(x =>(Number(x.price) - (Number(x.price)*(Number(x.discount)/100)) )* Number(x.quantity)).reduce((x,y)=> x + y).toFixed(2)}</p>
+    const dispatch = useDispatch();
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -18,14 +21,16 @@ function PaymentMain() {
     today = yyyy +'-'+ mm +'-'+ dd;
 
     const handlePay = () => {
-        const cartArr = state.web.cart    // Array of cart items
-        for (let i = 0; i < cartArr.length; i++){
+        const cart = state.web.cart;    // Array of cart items
+        const userinfo = state.user.userinfo;
+        const order = {cart, userinfo};
 
-        }
-
+        db.postOrder(order)
+        dispatch(setCart([]));
     }
 
     return (
+      
         <div id="payment">
             <div id="payment-main">
                 <CartInner id="payment-cart"/>
@@ -37,7 +42,8 @@ function PaymentMain() {
                     <br />{state.user.userinfo.address}
                     <br />{state.user.userinfo.postcode}</p>
                     <br />
-                    {cartTotal}
+                    {/* <p style={{fontWeight: "bold"}}>Total £{state.web.cart.map(x =>(Number(x.price) - (Number(x.price)*(Number(x.discount)/100)) )* Number(x.quantity)).reduce((x,y)=> x + y).toFixed(2)}</p> */}
+
                 </div>
             </div>
             <section id="payment-lower">
@@ -55,6 +61,16 @@ function PaymentMain() {
             <br />
         </div>
     )
+}
+
+function CheckCart() {
+  const state = useSelector(state => state);
+
+  return (
+    <div>
+  {state.web.cart.length > 0 ? <PaymentMain/> : <h2 style={{marginTop: "10vh"}} className="center">Your cart is empty! <br/> Go pick a cool game to buy</h2>}
+  </div>
+  )
 }
 
 function Payment() {
@@ -77,7 +93,7 @@ function Payment() {
     <div>
         <h1>Order confirmation and payment</h1>
         <section id="payment" className="center">
-        {state.user.userinfo.user_id !== -1 ? <PaymentMain /> : <Link to={'/login'}> <h2 style={{textDecoration: "underline"}}>Please Sign in to use this feature</h2></Link>}
+        {state.user.userinfo.user_id !== -1 ? <CheckCart /> : <Link to={'/login'}> <h2 className="center" style={{textDecoration: "underline", marginTop: "10vh"}}>Please Sign in to use this feature</h2></Link>}
         </section>
     </div>
   );
