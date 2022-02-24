@@ -29,7 +29,7 @@ function CartItem({game_id, title, image, platform, inventory_id, quantity, pric
             <div id="cart-item-right">
                 <h4 >x{quantity}</h4>
                 {discount !== null ? <h4 style={{color: "blue"}}>£{(price - price*(discount/100)).toFixed(2)}*</h4> : <h4 >£{price}</h4>}
-                <button onClick={handleRemove}>Remove</button>
+                <button style={{margin: '3px 0 0 10px'}}onClick={handleRemove}>Remove</button>
             </div>
         
         </div>    

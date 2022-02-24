@@ -5,6 +5,9 @@
   /* border: 1px solid maroon; */
   
 }
+html {
+  overflow-y: overlay;
+}
 
 a {
   text-decoration: none;
@@ -14,6 +17,20 @@ a {
 button{
   cursor: pointer;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+h1 {
+  margin-left: 2vw;
+  margin-bottom: 2vh;
+}
+
+#maincontent {
+  margin: 60px 10vw 20px 10vw;
+}
+
 
 
 /* 
@@ -29,6 +46,10 @@ NAV / STATUS
   background-color: rgb(66, 66, 66);
   color: white;
   height: 40px;
+
+}
+#navleft {
+  margin-left: 10vw;
 }
 #navleft ul{
   display: flex;
@@ -43,7 +64,7 @@ NAV / STATUS
 }
 
 #navright{
-  margin-right: 2vw;
+  margin-right: 10vw;
 }
 #navright button {
   margin: 0 1vw;
@@ -65,10 +86,7 @@ NAV / STATUS
   border-radius: 10px;
 }
 
-#maincontent {
-  margin: 60px 10px 10px 10px;
 
-}
 
 /* 
 CART
@@ -103,7 +121,7 @@ CART
 #cart-main {
   padding: 10px;
   margin: 10px 0;
-  height: 450px;
+  height: 400px;
   overflow: auto;
 }
 
@@ -143,29 +161,37 @@ CART
   text-align: right;
   font-weight: bold;
 }
+
+#cart-checkoutbutton {
+  align-self: center;
+
+}
 #cart-bottom button {
   background-color: rgb(220, 255, 220);
   height: 30px;
   width: 250px;
   align-self: center;
+
+
 }
 
 /* 
 Shop
 */
+
 #shop {
   display: flex;
 }
-#shop-page h1 {
-  margin-left: 2vw;
+
+#shop-page li {
+  margin-top: 10px;
+  list-style: none;
 }
 #shopfilter {
   width: 100px;
-margin-top: 2vh;
+
 }
-#shopfilter li{
-  list-style: none;
-}
+
 
 #shop-items-container {
   margin-top: 20px;
@@ -269,4 +295,51 @@ Login page
 #login-page input {
   margin: 1vh 0;
   height: 3rem;
+}
+
+
+/* 
+Checkout page
+*/
+
+#checkout-main {
+  padding: 2vw;
+  margin-bottom: 3vh;
+}
+
+#paybutton {
+  display: block;
+  margin: 5vh auto 0;
+  width: 50%;
+  height: 5vh;
+}
+/* 
+Payment Page
+*/
+
+
+
+#payment-main {
+  display: flex;
+  width: 100%;
+}
+#payment-cart {
+  font-size: 0.8rem;
+
+}
+#payment-cart button {
+  display: none;
+}
+#deliveryinfo {
+  margin: 20px;
+  padding-left: 5vw;
+  border-left: solid 1px black;
+}
+#payment-lower {
+  margin: 3vh 0vw;
+  text-align: center;
+  background-color: rgba(255, 232, 168, 0.555);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 0.9rem;
 }

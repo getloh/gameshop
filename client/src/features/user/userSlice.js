@@ -17,7 +17,9 @@ const initialState = {
         user_id: -1,
         firstname: 'Guest',
         lastname: '',
-        email: ''
+        email: '',
+        address: '',
+        postcode: ''
     }
 
 }

@@ -81,7 +81,7 @@ const initialState = {
     error: '',
     cartvis: false,
     cart: [],
-    filter: ''
+    filter: true
 }
 
 //? reducer with switch, or toolkit createSlice with options

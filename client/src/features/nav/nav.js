@@ -34,7 +34,7 @@ function Nav() {
     dispatch(setCartVis(!state.web.cartvis))
   }
 
-  useEffect(()=> {    // 
+  useEffect(()=> {    // Grabs user ID from cookie if it exists
     const cookies = document.cookie;
     if (cookies){
       let userId = cookies

@@ -1,16 +1,25 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux';
 import { setCartVis } from '../web/webSlice';
 import CartItem from './cartitem';
+import CartInner from './cartinner';
 
 function Cart() {
 
     const state = useSelector(state => state);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const cartTotal = <p>Total £{state.web.cart.map(x =>(Number(x.price) - (Number(x.price)*(Number(x.discount)/100)) )* Number(x.quantity)).reduce((x,y)=> x + y).toFixed(2)}</p>
+
 
     const handleClose = () => {
         dispatch(setCartVis(false))
+    }
+
+    const goCheckout = () => {
+        dispatch(setCartVis(false));
+        navigate(`/checkout`);
     }
 
     return (
@@ -19,24 +28,11 @@ function Cart() {
             <h1>My Cart</h1>
             <button onClick={handleClose}> X </button>
             </div>
-            <div id="cart-main">
-            {state.web.cart.length === 0 ? <p>You cart is empty</p>: null}
-                {state.web.cart.map(x => <CartItem 
-                    key={x.inventory_id}
-                    game_id={x.game_id}
-                    title={x.title}
-                    image={x.image}
-                    platform={x.platform}
-                    inventory_id={x.inventory_id}
-                    price={x.price}
-                    discount={x.discount}
-                    quantity={x.quantity}
-                />)}
-            </div>
+            <CartInner id="cart-main"></CartInner>
             <div id="cart-bottom">
-            {state.web.cart.length !== 0 ? <p>Total £{state.web.cart.map(x =>(Number(x.price) - (Number(x.price)*(Number(x.discount)/100)) )* Number(x.quantity)).reduce((x,y)=> x + y).toFixed(2)}</p>: null}
+            {state.web.cart.length !== 0 ? cartTotal : null}
 
-                <button>Checkout</button>
+            <button onClick={goCheckout}>Checkout </button>
             </div>
 
 
