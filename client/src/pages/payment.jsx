@@ -24,8 +24,8 @@ function PaymentMain() {
         const cart = state.web.cart;    // Array of cart items
         const userinfo = state.user.userinfo;
         const order = {cart, userinfo};
-        dispatch(setCart([]));
         localStorage.removeItem("cart");
+        dispatch(setCart([]));
         db.postOrder(order)
 
     }

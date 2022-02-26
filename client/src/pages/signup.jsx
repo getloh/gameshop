@@ -11,7 +11,7 @@ function Signup() {
   let params = (new URL(document.location)).searchParams;
   let auth = params.get("auth");
 
-  let loginURL = SERVER + "/api/users/new";
+  let signupURL = SERVER + "/api/users/new";
 
   useEffect(() => {
     if (auth === "fail"){
@@ -21,16 +21,16 @@ function Signup() {
     };
   }, []);
 
-  let test = () => {
-    console.log(loginURL);
-  }
+  // let test = () => {
+  //   console.log(loginURL);
+  // }
 
   return (
     <div id="signup-page">
         <h1>Sign up</h1>
         <section>
             
-            <form method='POST' action={loginURL}>
+            <form method='POST' action={signupURL}>
               <label htmlFor="email">E-Mail: </label>
                 <input name="email" type="text" placeholder="email"/>
               <label htmlFor="password">Password: </label>
@@ -46,7 +46,7 @@ function Signup() {
               <input type="submit" value="submit" />
             </form>
 
-            <button onClick={test}></button>
+            {/* <button onClick={test}></button> */}
         </section>
 
     </div>

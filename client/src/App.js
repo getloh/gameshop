@@ -13,6 +13,7 @@ import Payment from './pages/payment';
 import Notfound from './pages/notfound';
 import Userorders from './pages/userorders';
 import Signup from './pages/signup';
+import Useramend from './pages/useramend';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
         <Route path='/checkout/pay' element={<Payment />} />
         <Route path='/userorders' element={<Userorders />} />
         <Route path='/signup' element={<Signup />} />
-        {/* <Route path='/user/amend' element={<Useramend />} /> */}
+        <Route path='/user/amend' element={<Useramend />} />
         <Route path='*' element={<Notfound />} />
       </Routes>
       </div>

@@ -7,8 +7,7 @@ const session = require('./database-private');
 const SERVER = "http://localhost:3000"
 
 Router.post('/', function(req, res, next){
-
-    if (!req.body.password ){
+    if (!req.body.password || !req.body.email){
       throw new Error("Credentials invalid")
     }
     // const user = {email: req.body.email, password: req.body.password};
@@ -22,11 +21,12 @@ Router.post('/', function(req, res, next){
         res.cookie('session_id', session.generateId());
         res.cookie('email', req.body.email);
         res.cookie('user_id', results.rows[0].user_id);
-        res.redirect(`${SERVER}/shop?message=Logged%20in`);
+        // res.redirect(`${SERVER}/shop?message=Logged%20in`);
+        res.status(200).send("Login OK")
       }
       else {
-        res.redirect(`${SERVER}/login?auth=fail`);
-        res.status(500);
+        // res.redirect(`${SERVER}/login?auth=fail`);
+        res.status(401).send("Failed")
       };
     })
 })

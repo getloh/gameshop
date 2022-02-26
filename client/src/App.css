@@ -78,7 +78,7 @@ NAV / STATUS
 }
 
 #status {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 90%;
   transform: translate(-50%,-90%);
@@ -303,6 +303,13 @@ Login page
   margin: 1vh 0;
   height: 3rem;
 }
+#login-page button {
+  margin: 3vh 0 0 0;
+  justify-self: center;
+  height: 3rem;
+  
+  
+}
 
 
 /* 
@@ -409,4 +416,26 @@ Orders
 #signup-page input {
   margin: 1vh 0;
   height: 3rem;
+}
+
+/* 
+Useramend
+*/
+
+#useramend-page {
+  margin: 5vh 20vw;
+  
+}
+
+#useramend-page form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#useramend-page label {
+  font-size: 1.5rem;
+}
+#useramend-page input {
+  margin: 1vh 0;
+  height: 2rem;
 }
