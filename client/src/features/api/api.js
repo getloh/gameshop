@@ -123,6 +123,32 @@ async postLogin (object) {
       body: JSON.stringify(object)
     });
     if(response.ok){
+      console.log(response);
+      // const jsonResponse = await response.json();
+      // window.location.replace("/shop?message=Logged%20in");  // Redirect
+      // return jsonResponse;
+      return
+    }
+    throw new Error('Request failed!');
+  } catch(error) {
+    console.log(error);
+    store.dispatch(setStatus("Invalid Credentials - Check password"))
+  }
+
+},
+
+async postSignup (object) {
+  try {
+    const response = await fetch(`${SERVER}/api/users/new`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(object)
+    });
+    if(response.ok){
       // const jsonResponse = await response.json();
       window.location.replace("/shop?message=Logged%20in");  // Redirect
       // return jsonResponse;
@@ -131,7 +157,7 @@ async postLogin (object) {
     throw new Error('Request failed!');
   } catch(error) {
     console.log(error);
-    store.dispatch(setStatus("Invalid Credentials - Check password"))
+    store.dispatch(setStatus(error))
   }
 
 },

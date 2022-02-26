@@ -18,6 +18,36 @@ userRouter.get('/:id', login.authentication, function(req, res, next) {
   })
 });
 
+// For creation of new users, takes JSON, returns JSON
+userRouter.post ('/new', async function (req, res, next){
+  console.log(`${req.body.firstname}, ${req.body.lastname}, ${req.body.email}, ${req.body.password}, ${req.body.address},${req.body.postcode}`)
+  
+  pool.query(`
+    INSERT INTO users (firstname, lastname, email, password, address, postcode) 
+    VALUES ($1, $2, $3, $4, $5, $6)`, [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.address, req.body.postcode], (error, results) => {
+    if (error) {
+      throw error
+    }
+    console.log(`New user created successfully - ${req.body.firstname} ${req.body.lastname}`)
+
+
+
+  })
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  pool.query(`SELECT user_id, firstname, lastname, email, address, postcode FROM users WHERE email = $1`,[req.body.email], (error, results) => {
+    if (error) {
+      throw error
+    }
+
+    res.cookie('session_id', dbPrivate.generateId());
+    res.cookie('email', req.body.email);
+    res.cookie('user_id', results.rows[0].user_id);
+    res.status(200).send("Account created and logged in");
+
+  })
+})
+
+
 // Amend user information
 userRouter.post('/:id', login.authentication, async function (req, res, next){
 
@@ -93,34 +123,6 @@ userRouter.put('/:id', login.authentication, async function (req, res, next){
   res.status(202).send("Request recieved");
 });
 
-// For creation of new users, takes JSON, returns JSON
-userRouter.post ('/new', async function (req, res, next){
-  console.log(`${req.body.firstname}, ${req.body.lastname}, ${req.body.email}, ${req.body.password}, ${req.body.address},${req.body.postcode}`)
-  
-  pool.query(`
-    INSERT INTO users (firstname, lastname, email, password, address, postcode) 
-    VALUES ($1, $2, $3, $4, $5, $6)`, [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.address, req.body.postcode], (error, results) => {
-    if (error) {
-      throw error
-    }
-    console.log(`New user created successfully - ${req.body.firstname} ${req.body.lastname}`)
-
-
-
-  })
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  pool.query(`SELECT user_id, firstname, lastname, email, address, postcode FROM users WHERE email = $1`,[req.body.email], (error, results) => {
-    if (error) {
-      throw error
-    }
-
-    res.cookie('session_id', dbPrivate.generateId());
-    res.cookie('email', req.body.email);
-    res.cookie('user_id', results.rows[0].user_id);
-    res.redirect(`${SERVER}/shop?message=Account%20Created%20and%20auto%20logged%20in`);
-
-  })
-})
 
 
 
