@@ -49,20 +49,30 @@ NAV / STATUS
   background-color: rgb(66, 66, 66);
   color: white;
   height: 40px;
-
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight:bold
 }
 #navleft {
   margin-left: 10vw;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
 }
 #navleft ul{
   display: flex;
   align-items: center;
-  margin-top: 5px;
+  margin-top: -6px;
   padding: 2px;
-
+}
+#navleft img {
+  height: 30px;
+  width: 100%;
+  margin-right: 5px;
+  padding-right: 30px;
+  object-fit: contain;
 }
 #navleft li {
-  padding: 0 5vw;
+  padding: 0 4vw;
   list-style: none;
 }
 
@@ -100,6 +110,7 @@ HOME
   display: flex;
   justify-content: space-between;
   background-color: rgb(236, 236, 236);
+  font-family: 'Source Sans Pro', sans-serif;
 }
 #home-1-side {
   display: flex;
@@ -110,6 +121,7 @@ HOME
 }
 #home-1 h1{
   margin: 0;
+  
 }
 #home-1 img {
   height: 100%;
@@ -124,9 +136,10 @@ HOME
   border: solid 1px grey;
 }
 #home-2 {
-  margin: 30px 0;
+  padding: 30px 0;
 }
 #home-2 h2{
+  font-family: 'Source Sans Pro', sans-serif;
   text-align: center;
 }
 #home-2-lower {
@@ -140,7 +153,7 @@ HOME
 #home-3 {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(236, 236, 236);
+  background-color: rgb(247, 247, 247);
 }
 #home-3-side {
   display: flex;
@@ -151,6 +164,7 @@ HOME
   text-align: end;
 }
 #home-3 h1{
+  font-family: 'Source Sans Pro', sans-serif;
   margin: 0;
 }
 #home-3 img {
@@ -159,12 +173,7 @@ HOME
   margin: 0 5px;
   object-fit: contain;
 }
-#home-3 button{
-  width: 200px;
-  height: 50px;
-  background-color: white;
-  border: solid 1px grey;
-}
+
 #home-4 {
   padding: 10vh 0 10vh 0;
   text-align: center;

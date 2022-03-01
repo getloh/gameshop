@@ -32,7 +32,7 @@ function Home() {
         <section id="home-3">
             <img src="https://meng.s-ul.eu/OTYVLY9b" alt="" />
             <div id="home-3-side">
-              <h2>Pick me!</h2>
+              <h1>Pick me!</h1>
               <p>Look at how much fun this guy is having, this could be you! <br/>
                Why does this stock photo exist? <br />
                 This is not a picture of me. <br />

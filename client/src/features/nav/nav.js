@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { setCart, setCartVis, setStatus } from '../web/webSlice';
 import Cart from './cart';
 import { db } from '../api/api';
+import kglogo from '../../img/KG-logo-zoom.png'
 
 function Nav() {
   const state = useSelector(state => state);
@@ -57,8 +58,9 @@ function Nav() {
     <div id="navpage">
     <div id="nav">
         <div id="navleft">
+        <Link to='/'> <img src={kglogo} alt="" /> </Link>
             <ul>
-                <Link to='/'> <li>Home</li> </Link>
+                
                 <Link to='/shop'> <li>Shop</li> </Link>
                 <Link to='/info'> <li>Info</li> </Link>
             </ul>
