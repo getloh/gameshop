@@ -3,6 +3,7 @@ var orderRouter = express.Router();
 const db = require('./database');
 const pool = db.pool;
 
+
 // GET all order information (admin function)
 orderRouter.get('/', function(req, res, next) {
   pool.query('SELECT * FROM orders ORDER BY order_id ASC', (error, results) => {
@@ -39,6 +40,17 @@ orderRouter.get('/user/:id', function(req, res, next) {
   })
 });
 
+// Function for getting stock
+async function getStock(inv_id){
+  let response;
+  try {
+    response = await pool.query(`SELECT stock FROM inventory WHERE inventory_id = ${inv_id}`)
+  } catch (error){
+    throw error;
+  }
+  return response.rows
+}
+
 // POST new order - will generate an order in orders DB
 orderRouter.post('/new', async function(req, res, next) {
 
@@ -60,15 +72,35 @@ orderRouter.post('/new', async function(req, res, next) {
   
 
   for (let i = 0; i < cart.length; i++){
+    const inv_id = cart[i].inventory_id;
+    const quantitySold = cart[i].quantity;
+    
+    let currentStock = await getStock(inv_id);
+    currentStock = currentStock[0].stock;
+
+    if (currentStock >= quantitySold) {
+
     pool.query(`INSERT INTO orders (user_id, inventory_id, quantity, payment, order_date) VALUES ($1, $2, $3, $4, $5)`,
     [user.user_id, cart[i].inventory_id, cart[i].quantity, "VISA 1234567812345678", today], (error, results) => {
       if (error) {
         throw error
       }
-    })
+    });
     
 
 
+    pool.query(
+      `UPDATE inventory SET stock = ${Number(currentStock-quantitySold)} WHERE inventory_id = ${inv_id}`,
+      (error, results) => {
+        if (error) {
+          throw error
+        }
+        console.log(`Stock has been modified Stock is now ${Number(currentStock-quantitySold)} for stock_ID ${inv_id}`)
+      })
+    }
+    else {
+      throw new Error("Insufficient Stock, an item may be sold out");
+    }
   }
 
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -84,6 +116,5 @@ orderRouter.post('/new', async function(req, res, next) {
 
 }
 );
-
 
 module.exports = orderRouter;
