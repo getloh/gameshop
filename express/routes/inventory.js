@@ -47,7 +47,7 @@ inventoryRouter.get('/game/:id', function(req, res, next) {
   })
 });
 
-// Function for updating stock
+// Function for getting stock
 async function getStock(inv_id){
   let response;
   try {

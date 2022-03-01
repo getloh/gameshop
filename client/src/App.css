@@ -89,8 +89,88 @@ NAV / STATUS
   border-radius: 10px;
 }
 
-
-
+/* 
+HOME
+*/
+#home-page {
+  margin: -25px;
+  margin:-30px -10vw -20px -10vw;
+}
+#home-1 {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(236, 236, 236);
+}
+#home-1-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; 
+  margin-left: 5vw;
+}
+#home-1 h1{
+  margin: 0;
+}
+#home-1 img {
+  height: 100%;
+  width: 45vw;
+  margin-right: 5px;
+  object-fit: contain;
+}
+#home-1 button{
+  width: 200px;
+  height: 50px;
+  background-color: white;
+  border: solid 1px grey;
+}
+#home-2 {
+  margin: 30px 0;
+}
+#home-2 h2{
+  text-align: center;
+}
+#home-2-lower {
+  display: flex;
+  justify-content: space-around;
+  margin: 5vh 10vw;
+}
+#home-2-lower p {
+  margin: 0 2vw;
+}
+#home-3 {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(236, 236, 236);
+}
+#home-3-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end; 
+  margin: 0 5vw;
+  text-align: end;
+}
+#home-3 h1{
+  margin: 0;
+}
+#home-3 img {
+  height: 100%;
+  width: 45vw;
+  margin: 0 5px;
+  object-fit: contain;
+}
+#home-3 button{
+  width: 200px;
+  height: 50px;
+  background-color: white;
+  border: solid 1px grey;
+}
+#home-4 {
+  padding: 10vh 0 10vh 0;
+  text-align: center;
+  background-color: rgb(53, 53, 53);
+  color: rgb(204, 204, 204);
+}
 /* 
 CART
 */
@@ -260,6 +340,12 @@ Item Page
   max-width: 40vw;
   object-fit: contain;
   overflow: hidden;
+}
+#item-backbutton {
+  background-color: white;
+  border: 1px solid rgb(216, 215, 215);
+  padding: 5px 20px;
+  margin: 0 0 10px 0;
 }
 
 .item-upper {

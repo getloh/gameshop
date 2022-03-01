@@ -66,6 +66,9 @@ orderRouter.post('/new', async function(req, res, next) {
         throw error
       }
     })
+    
+
+
   }
 
   await new Promise(resolve => setTimeout(resolve, 1000));

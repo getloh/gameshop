@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 function Info() {
   return (
     <div>
-        <h1>This is info</h1>
+        <h1>Info Page</h1>
         <section>
             <p>Hi, Thanks for visiting. <br />
              This site was made by Steven Loh as a portfolio project <br />
