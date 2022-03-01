@@ -47,46 +47,6 @@ userRouter.post ('/new', async function (req, res, next){
   })
 })
 
-
-// Amend user information
-userRouter.post('/:id', login.authentication, async function (req, res, next){
-
-  if (req.body.firstname){
-    pool.query(`UPDATE users SET firstname = $1 WHERE user_id = $2`,[req.body.firstname, req.params.id], (error, results) => {
-      if (error) {        throw error      }
-    })
-  }
-
-  if (req.body.lastname){
-    pool.query(`UPDATE users SET lastname = $1 WHERE user_id = $2`,[req.body.lastname, req.params.id], (error, results) => {
-      if (error) {        throw error      }
-    })
-  }
-
-  if (req.body.email){
-    pool.query(`UPDATE users SET email = $1 WHERE user_id = $2`,[req.body.email, req.params.id], (error, results) => {
-      if (error) {        throw error      }
-    })
-  }
-  if (req.body.address){
-    pool.query(`UPDATE users SET address = $1 WHERE user_id = $2`,[req.body.address, req.params.id], (error, results) => {
-      if (error) {        throw error      }
-    })
-  }
-  if (req.body.password){
-    pool.query(`UPDATE users SET password = $1 WHERE user_id = $2`,[req.body.password, req.params.id], (error, results) => {
-      if (error) {        throw error      }
-    })
-  }
-  if (req.body.postcode){
-    pool.query(`UPDATE users SET postcode = $1 WHERE user_id = $2`,[req.body.postcode, req.params.id], (error, results) => {
-      if (error) {        throw error      }
-    })
-  }
-  // res.redirect(`${SERVER}/shop?message=userinfo%20Amended`);
-  res.status(202).send("Request recieved");
-});
-
 // Amend user information
 userRouter.put('/:id', login.authentication, async function (req, res, next){
 
@@ -122,12 +82,5 @@ userRouter.put('/:id', login.authentication, async function (req, res, next){
   }
   res.status(202).send("Request recieved");
 });
-
-
-
-
-
-
-
 
 module.exports = userRouter;

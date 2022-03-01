@@ -28,7 +28,7 @@ gamesRouter.get('/inv', function (req, res, next){
     let resp = results.rows
     res.status(200).json(resp);
   })
-})
+});
 
 // Retrieves detailed info on a single game_ID
 gamesRouter.get('/:id', function(req, res, next) {
