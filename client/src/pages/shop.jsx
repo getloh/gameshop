@@ -96,7 +96,7 @@ function Shop() {
 
   return (
     <div id="shop-page">
-    <h1>Games Shop</h1>
+    {/* <h1>Kakariko Games Shop</h1> */}
       <div id="shop">
         <nav id="shopfilter">
         <br />
