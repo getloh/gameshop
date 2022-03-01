@@ -31,7 +31,7 @@ orderRouter.delete('/:id', function(req, res, next) {
 
 // GET a user's orders
 orderRouter.get('/user/:id', function(req, res, next) {
-  pool.query(`SELECT * FROM orders WHERE user_id = ${req.params.id}`, (error, results) => {
+  pool.query(`SELECT * FROM orders WHERE user_id = ${req.params.id} ORDER BY order_id DESC`, (error, results) => {
     if (error) {
       throw error
     }

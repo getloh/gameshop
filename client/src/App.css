@@ -393,14 +393,19 @@ Orders
   justify-content: space-between;
   margin: 20px;
   background-color: rgb(235, 235, 235);
-  height: 7vh;
-
+  height: 10vh;
+  border-radius: 10px;
 }
 #order-item p {
   margin: 0 10px;
-
 }
 
+#order-item img {
+  height: 100%;
+  width: 3vw;
+  margin-right: 5px;
+  object-fit: contain;
+}
 /* 
 Orders
 */
@@ -453,4 +458,14 @@ Useramend
 #useramend-page input {
   margin: 1vh 0;
   height: 2rem;
+}
+#useramend-lower {
+  display: flex;
+  justify-content: center;
+}
+#useramend-lower button {
+  margin: 1vh 0;
+  height: 3rem;
+  padding: 0 10vw;
+  
 }

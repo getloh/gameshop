@@ -73,7 +73,7 @@ class Useramend extends React.Component {
 
                     </form>
                     <div id="useramend-lower">
-                    <button onClick={this.handleSubmit}>Signup</button>
+                    <button onClick={this.handleSubmit}>Amend Info</button>
                     </div>
         
                     {/* <button onClick={test}>TEST</button> */}

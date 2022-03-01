@@ -13,6 +13,9 @@ function Userorders() {
     if (userId !== -1){
       db.getUserOrders(userId);
     }
+    if (state.web.games[1] === undefined){
+      db.getGameData();
+    }
     return () => {};
   }, []);
 
@@ -20,6 +23,7 @@ function Userorders() {
     <div>
         <h1>Your Orders</h1>
         {state.user.order_history.map(x => <OrderItem 
+          key = {x.order_id}
           user_id = {x.user_id}
           order_id = {x.order_id}
           inventory_id = {x.inventory_id}
