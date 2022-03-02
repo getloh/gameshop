@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.e3e84470.css",
-    "main.js": "/static/js/main.05c5c1d6.js",
+    "main.js": "/static/js/main.a64e7036.js",
     "static/media/KG-logo-zoom.png": "/static/media/KG-logo-zoom.2055360d2d226b9c4810.png",
     "index.html": "/index.html",
     "main.e3e84470.css.map": "/static/css/main.e3e84470.css.map",
-    "main.05c5c1d6.js.map": "/static/js/main.05c5c1d6.js.map"
+    "main.a64e7036.js.map": "/static/js/main.a64e7036.js.map"
   },
   "entrypoints": [
     "static/css/main.e3e84470.css",
-    "static/js/main.05c5c1d6.js"
+    "static/js/main.a64e7036.js"
   ]
 }

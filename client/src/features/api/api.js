@@ -5,7 +5,7 @@ import { setUserInfo, setOrderHistory } from "../user/userSlice";
 import { useNavigate } from "react-router-dom";
 
 
-export const SERVER = "http://localhost:8000"
+// export const SERVER = "http://localhost:8000"
 
 
 export const  db = {
@@ -13,7 +13,7 @@ export const  db = {
 
     async getGameData () {  // Gets all game data - used in /SHOP
         try {
-            const response = await fetch(`${SERVER}/api/games/inv`);
+            const response = await fetch(`/api/games/inv`);
             if (response.ok) {
               const jsonResponse = await response.json();
               store.dispatch(setGames(jsonResponse));
@@ -27,7 +27,7 @@ export const  db = {
 
     async getSingleGameData (game_id) { // Gets single game data info - used in /SHOP/:game_id
         try {
-            const response = await fetch(`${SERVER}/api/games/${game_id}`);
+            const response = await fetch(`/api/games/${game_id}`);
             if (response.ok) {
                 const jsonResponse = await response.json();
                 store.dispatch(setGameDetail(jsonResponse));
@@ -42,7 +42,7 @@ export const  db = {
 
     async getSingleInventoryData (inventory_id) {
         try {
-            const response = await fetch(`${SERVER}/api/inventory/${inventory_id}`);
+            const response = await fetch(`/api/inventory/${inventory_id}`);
             if (response.ok) {
                 const jsonResponse = await response.json();
                 store.dispatch(setGameInventory(jsonResponse));
@@ -56,7 +56,7 @@ export const  db = {
 
     async getUserData (user_id) {
       try {
-          const response = await fetch(`${SERVER}/api/users/${user_id}`, {
+          const response = await fetch(`$/api/users/${user_id}`, {
             credentials: 'include'
           });
           if (response.ok) {
@@ -73,7 +73,7 @@ export const  db = {
 
   async postOrder (object) {
     try {
-      const response = await fetch(`${SERVER}/api/orders/new`, {
+      const response = await fetch(`/api/orders/new`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -97,7 +97,7 @@ export const  db = {
 
   async getUserOrders (user_id) {
     try {
-        const response = await fetch(`${SERVER}/api/orders/user/${user_id}`, {
+        const response = await fetch(`/api/orders/user/${user_id}`, {
           credentials: 'include'
         });
         if (response.ok) {
@@ -113,7 +113,7 @@ export const  db = {
 
 async postLogin (object) {
   try {
-    const response = await fetch(`${SERVER}/api/login`, {
+    const response = await fetch(`/api/login`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -139,7 +139,7 @@ async postLogin (object) {
 
 async postSignup (object) {
   try {
-    const response = await fetch(`${SERVER}/api/users/new`, {
+    const response = await fetch(`/api/users/new`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -164,7 +164,7 @@ async postSignup (object) {
 
 async userAmend (object) {
   try {
-    const response = await fetch(`${SERVER}/api/users/${object.user_id}`, {
+    const response = await fetch(`/api/users/${object.user_id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
