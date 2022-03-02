@@ -3,10 +3,13 @@ import {Link} from 'react-router-dom'
 import { db } from '../features/api/api';
 
 const cookies = document.cookie;
-let userId = cookies
-.split('; ')
-.find(row => row.startsWith('user_id='))
-.split('=')[1];
+let userId;
+if (cookies){
+  userId = cookies
+  .split('; ')
+  .find(row => row.startsWith('user_id='))
+  .split('=')[1];
+}
 
 
 class Useramend extends React.Component {
