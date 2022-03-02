@@ -56,7 +56,7 @@ export const  db = {
 
     async getUserData (user_id) {
       try {
-          const response = await fetch(`$/api/users/${user_id}`, {
+          const response = await fetch(`/api/users/${user_id}`, {
             credentials: 'include'
           });
           if (response.ok) {
