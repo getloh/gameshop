@@ -9,21 +9,20 @@ const devConfig = {
     database: process.env.pg_database,
     password: process.env.pg_password,
     port: process.env.pg_port,
-}
-
+};
 
 const proConfig = {
     connectionString: process.env.DATABASE_URL // comes from heroku addon
-}
+};
 const herokuConfig = {
     connectionString: process.env.DATABASE_URL,
     ssl: {
       rejectUnauthorized: false
     }
-  }
+  };
 
-const pool = new Pool("connectionString: process.env.NODE_ENV" === "production" ? herokuConfig : devConfig);
-
+// const pool = new Pool("connectionString: process.env.NODE_ENV" === "production" ? herokuConfig : devConfig);
+const pool = new Pool(herokuConfig);
 
 const generateId = () => {
     
