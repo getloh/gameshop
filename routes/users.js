@@ -5,7 +5,7 @@ const pool = db.pool;
 const login = require('./login');
 const dbPrivate = require('./database-private');
 
-const SERVER = "http://localhost:3000"
+// const SERVER = "http://localhost:3000"
 
 /* Retrieve information relating to the logged in user */
 userRouter.get('/:id', login.authentication, function(req, res, next) {
