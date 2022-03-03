@@ -617,7 +617,7 @@ Responsive section--------------------------
 
 @media screen and (max-width: 600px) {
   #navleft li {
-    padding: 0 1vw;
+    padding: 0 3vw;
   }
   #navleft img {
     padding-right: 0px;
@@ -633,6 +633,13 @@ Responsive section--------------------------
     font-size: 0.7rem;
     width: 20vw;
   }
+  #navleft li {
+    padding: 0 2vw;
+    font-size: 0.8rem;
+  }
+  #navleft ul {
+    margin-left: 5vw;
+  }
   #nav{
     height: 45px;
   }
@@ -641,6 +648,7 @@ Responsive section--------------------------
   }
   #navleft img {
     min-width: 120px;
+    margin: 0 5px;
   }
   .shopitem {
     width: 100px;
@@ -648,11 +656,12 @@ Responsive section--------------------------
     font-size: 0.6rem;
   }
   .shopitem img {
-    max-width: 100px;
+    max-width: 80px;
   }
   #shopfilter {
     font-size: 0.7rem;
     width: 60px;
+    margin-left: 5px;
   }
   #cart {
     font-size: 0.6rem;
