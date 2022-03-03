@@ -2,7 +2,7 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  border: 1px solid maroon;
+  /* border: 1px solid maroon; */
 }
 html {
   overflow-y: overlay;
@@ -596,9 +596,6 @@ Responsive section--------------------------
     margin: 0px;
     font-size: 0.7rem;
   }
-  #cart-item-right{
-    flex-wrap: wrap;
-  }
   #cart-item h3{
     width: 15vw;
   }
@@ -632,7 +629,9 @@ Responsive section--------------------------
 
 @media screen and (max-width: 475px) {
   #navright button {
-    padding: 0 0;
+    padding: 2px 0;
+    font-size: 0.7rem;
+    width: 20vw;
   }
   #nav{
     height: 45px;
@@ -643,13 +642,52 @@ Responsive section--------------------------
   #navleft img {
     min-width: 120px;
   }
-  .shopitem{
-    width: 120px;
-    height: 280px;
+  .shopitem {
+    width: 100px;
+    height: 260px;
     font-size: 0.6rem;
+  }
+  .shopitem img {
+    max-width: 100px;
   }
   #shopfilter {
     font-size: 0.7rem;
     width: 60px;
   }
+  #cart {
+    font-size: 0.6rem;
+  }
+  #cart{
+    padding: 20px 10px;
+  }
+  #cart-item {
+    margin: 10px -10px 0 -10px;
+  }
+  #itempage {
+    font-size: 0.9rem;
+  }
+  #userpage h1{
+    font-size: 1.5rem;
+  }
+  #userpage-main {
+    margin: 0 0;
+  }
+  .userpagebutton {
+    font-size: 0.7rem;
+  }
+  #checkout {
+    font-size: 0.8rem;
+    margin: 25px;
+  }
+  #payment {
+    margin: 10px;
+  }
+  #payment-main {
+    font-size: 0.7rem;
+  }
+  #payment-lower {
+    font-size: 0.7rem;
+  }
+ 
+  
 }
