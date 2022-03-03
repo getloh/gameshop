@@ -21,8 +21,8 @@ const herokuConfig = {
     }
   };
 
-// const pool = new Pool("connectionString: process.env.NODE_ENV" === "production" ? herokuConfig : devConfig);
-const pool = new Pool(herokuConfig);
+const pool = new Pool(process.env.NODE_ENV === "production" ? herokuConfig : devConfig);
+// const pool = new Pool(herokuConfig);
 
 const generateId = () => {
     

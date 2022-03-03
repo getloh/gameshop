@@ -1,5 +1,7 @@
 import React from 'react';
 import {Link, useNavigate} from 'react-router-dom'
+import home1 from '../img/home1.jpg'
+import home2 from '../img/home2.jpg'
 
 function Home() {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ function Home() {
               <button onClick={goToShop}>Shop now!</button>
             </div>
             <div id="home-1-right">
-              <img src="https://meng.s-ul.eu/qXA5WACL" alt="" />
+              <img src={home1} alt="" />
             </div>
         </section>
         <section id="home-2">
@@ -30,7 +32,7 @@ function Home() {
 
         </section>
         <section id="home-3">
-            <img src="https://meng.s-ul.eu/OTYVLY9b" alt="" />
+            <img src={home2} alt="" />
             <div id="home-3-side">
               <h1>Pick me!</h1>
               <p>Look at how much fun this guy is having, this could be you! <br/>
