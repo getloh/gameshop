@@ -1,12 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import { store } from '../../app/store';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { removeFromCart } from '../web/webSlice';
 
 function CartItem({game_id, title, image, platform, inventory_id, quantity, price, discount}) {
 
-    const state = useSelector(state => state);
     const dispatch = useDispatch();
 
     const handleRemove = () => {
@@ -18,7 +17,6 @@ function CartItem({game_id, title, image, platform, inventory_id, quantity, pric
 
     return (
 
-        
         <div id="cart-item">
             <div id="cart-item-left">
                 <img src={image} alt={title} />
@@ -29,7 +27,7 @@ function CartItem({game_id, title, image, platform, inventory_id, quantity, pric
             <div id="cart-item-right">
                 <h4 >x{quantity}</h4>
                 {discount !== null ? <h4 style={{color: "blue"}}>£{(price - price*(discount/100)).toFixed(2)}*</h4> : <h4 >£{price}</h4>}
-                <button style={{margin: '3px 0 0 10px'}}onClick={handleRemove}>Remove</button>
+                <button onClick={handleRemove}>Remove</button>
             </div>
         
         </div>    

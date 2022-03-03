@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {Link} from 'react-router-dom'
 import { db } from '../features/api/api';
 import Shopitem from '../features/shop/Shopitem';
 import { setFilter, setStatus } from '../features/web/webSlice';

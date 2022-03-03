@@ -1,7 +1,5 @@
 import React from 'react';
-import {Link, Navigate, useNavigate} from 'react-router-dom'
-import {useSelector, useDispatch} from 'react-redux';
-import { setCartVis } from '../web/webSlice';
+import {useSelector} from 'react-redux';
 import CartItem from './cartitem';
 
 function CartInner({id}) {

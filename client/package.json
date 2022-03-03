@@ -1,6 +1,6 @@
 {
-  "name": "gameshop",
-  "version": "0.1.0",
+  "name": "kakariko-games",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",

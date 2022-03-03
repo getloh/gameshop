@@ -1,18 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
-import { store } from '../../app/store';
-import {useSelector, useDispatch} from 'react-redux';
-import { removeFromCart } from '../web/webSlice';
+import {useSelector} from 'react-redux';
 
 function OrderItem({user_id, order_id, inventory_id, quantity, status, payment, order_date}) {
 
     const state = useSelector(state => state);
-    const dispatch = useDispatch();
-
     const orderDate = order_date.slice(0,10)
-
     const gameIndex = state.web.games.findIndex(x => x.inventory_id === inventory_id)
-
 
     return (
 

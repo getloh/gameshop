@@ -1,12 +1,9 @@
 import { store } from "../../app/store.js";
-import { setGames, setError, setStatus, setGameDetail, setGameInventory } from "../web/webSlice.jsx";
-import { useSelector } from "react-redux";
+import { setGames, setStatus, setGameDetail, setGameInventory } from "../web/webSlice.jsx";
 import { setUserInfo, setOrderHistory } from "../user/userSlice";
-import { useNavigate } from "react-router-dom";
 
 
 // export const SERVER = "http://localhost:8000"
-
 
 export const  db = {
 

@@ -10,8 +10,6 @@ function Shopitem({game_id, title, release, rating, image, platform, inventory_i
     if (discount !== null){
         const disc = 1 - (discount / 100);
         discPrice = Number(price * disc).toFixed(2)
-
-
     }
 
 

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom'
-import CartItem from '../features/nav/cartitem';
 import { useEffect } from 'react';
 import { db } from '../features/api/api';
-import Cart from '../features/nav/cart';
 import CartInner from '../features/nav/cartinner';
 import { setCart } from '../features/web/webSlice';
 

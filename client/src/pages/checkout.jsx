@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {Link, useNavigate} from 'react-router-dom'
-import CartItem from '../features/nav/cartitem';
+import {useNavigate} from 'react-router-dom'
 import CartInner from '../features/nav/cartinner';
 
 function Checkout() {

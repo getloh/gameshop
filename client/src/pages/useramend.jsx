@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
 import { db } from '../features/api/api';
 
 const cookies = document.cookie;

@@ -1,12 +1,10 @@
 import React, {useEffect} from 'react';
-import {Link, useNavigate} from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { db } from '../features/api/api';
 import OrderItem from '../features/orders/orderitem';
 
 function Userorders() {
   const state = useSelector(state => state)
-  const navigate = useNavigate();
 
   useEffect(() => {
     const userId = state.user.userinfo.user_id;

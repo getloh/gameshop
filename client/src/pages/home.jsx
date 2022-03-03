@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import home1 from '../img/home1.jpg'
 import home2 from '../img/home2.jpg'
 
