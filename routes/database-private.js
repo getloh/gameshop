@@ -11,9 +11,6 @@ const devConfig = {
     port: process.env.pg_port,
 };
 
-const proConfig = {
-    connectionString: process.env.DATABASE_URL // comes from heroku addon
-};
 const herokuConfig = {
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -40,6 +37,31 @@ const generateId = () => {
     return String(id.join(''));
 }
 
+const generateIdAdmin = (str) => {
+    let z = 1
+    if (str === "admin"){
+        z = 9
+    }
+    if (str === "staff"){
+        z = 5
+    }
+    let id = []
+    for (let i = 0; i < 40; i++){
+        let x = Math.floor(Math.random()*10)
+        id.push(x);
+    }
+    let x = id[2];
+    let y = id[2]*2;
+    if (y > 9){y-=10}
+    id.splice(7,1,y);
+    id.splice(10,1,y);
+    id.splice(13,1,x);
+    id.splice(19,1,5);
+    id.splice(22,1,z);  // indicator for elevation type
+    
+    return String(id.join(''));
+}
+
 const checkId = (id) => {
     let x = id[1]
     let y = x*2;
@@ -54,10 +76,26 @@ const checkId = (id) => {
     else {return false}
 }
 
+const checkIdAdmin = (id) => {  
+    let x = id[2]
+    let y = x*2;
+    if (y > 9){y -= 10}
+
+    if (y % 2 != 0){
+        return false
+    }
+    if (id[7] == y && id[10] == y && id[13] == x && id[19] == 5){
+        return true
+    }
+    else {return false}
+}
+
 
 module.exports = {
     pool,
     generateId,
-    checkId
+    checkId,
+    generateIdAdmin,
+    checkIdAdmin
 }
 

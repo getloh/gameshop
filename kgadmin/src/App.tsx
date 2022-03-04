@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  function add (num1: number, num2: number){}
+
   return (
     <div className="App">
       <header className="App-header">

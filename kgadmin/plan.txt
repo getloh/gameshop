@@ -1,0 +1,17 @@
+## to do
+- set express to register admins- set a specific cookie
+- do not let users into the admin site without the cookie
+
+## planned features/scope
+### managerial
+- show how many orders and timeframe
+- show most/least popular products?
+- warnings for stock levels
+- show daily/weekly revenue
+- suggest sales for high stock products
+### warehouse
+- Show orders which have not been set to status of dispatch yet
+- Easy interface for showing an order and recipient information
+- easy interface for changing order status
+- show orders which have a status of null/'confirmed'
+

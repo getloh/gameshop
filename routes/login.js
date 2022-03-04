@@ -8,6 +8,7 @@ const SERVER = "http://localhost:3000"
 
 Router.post('/', function(req, res, next){
     if (!req.body.password || !req.body.email){
+      res.status(401).send("Failed")
       throw new Error("Credentials invalid")
     }
     // const user = {email: req.body.email, password: req.body.password};
@@ -17,6 +18,10 @@ Router.post('/', function(req, res, next){
       if (error) {
         throw error
       };
+
+      if (results.rows[0].staff !== null){  // finds and gives admin cookie
+        res.cookie('staffsession_id', session.generateIdAdmin(results.rows[0].staff));
+      }
       if (results.rows[0].password === req.body.password){
         res.cookie('session_id', session.generateId());
         res.cookie('email', req.body.email);
@@ -45,5 +50,20 @@ const authentication = (req, res, next) => {
     // }
 }
 
+// authentication middleware
+const staffAuthentication = (req, res, next) => {
+  if (req.cookies.staffsession_id === undefined){
+    res.status(403).send("Restricted access only");
+    throw error;
+  };
+  if (session.checkIdAdmin(req.cookies.staffsession_id)){
+    next();
+  }
+  else {
+    res.status(401).send("cookie failure")
+  }
 
-module.exports = {Router, authentication};
+}
+
+
+module.exports = {Router, authentication, staffAuthentication};

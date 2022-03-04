@@ -2,10 +2,11 @@ var express = require('express');
 var orderRouter = express.Router();
 const db = require('./database');
 const pool = db.pool;
+const login = require('./login');
 
 
 // GET all order information (admin function)
-orderRouter.get('/', function(req, res, next) {
+orderRouter.get('/', login.staffAuthentication, function(req, res, next) {
   pool.query('SELECT * FROM orders ORDER BY order_id ASC', (error, results) => {
     if (error) {
       throw error
@@ -15,7 +16,7 @@ orderRouter.get('/', function(req, res, next) {
 });
 
 // GETs a single order via Order_ID
-orderRouter.get('/:id', function(req, res, next) {
+orderRouter.get('/:id', login.authentication, function(req, res, next) {
   pool.query(`SELECT * FROM orders WHERE order_id = ${req.params.id}`, (error, results) => {
     if (error) {
       throw error
@@ -31,7 +32,7 @@ orderRouter.delete('/:id', function(req, res, next) {
 });
 
 // GET a user's orders
-orderRouter.get('/user/:id', function(req, res, next) {
+orderRouter.get('/user/:id', login.authentication, function(req, res, next) {
   pool.query(`SELECT * FROM orders WHERE user_id = ${req.params.id} ORDER BY order_id DESC`, (error, results) => {
     if (error) {
       throw error
@@ -52,7 +53,7 @@ async function getStock(inv_id){
 }
 
 // POST new order - will generate an order in orders DB
-orderRouter.post('/new', async function(req, res, next) {
+orderRouter.post('/new', login.authentication, async function(req, res, next) {
 
   //  input Data is JSON
   //  Cart : [array of objects],
