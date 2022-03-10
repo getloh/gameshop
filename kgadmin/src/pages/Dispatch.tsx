@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom'
 import { useEffect } from 'react';
 import { inventoryProperties, orderProperties, pricePerOrderType, orderDataDetailType} from '../features/interfaces';
 import Dispatchitem from '../features/elements/Dispatchitem';
+import { Box } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 interface orderType {
     orders: orderProperties;
@@ -43,10 +45,12 @@ function Dispatch() {
 
 
   return (
-    <div id="dispatch">
+    <Box>
+        <Typography variant='h4' align="center"> Dispatch - Orders waiting </Typography>
+    <Box sx={{}}>
         {activeData.map(x => <Dispatchitem data={x}/>)}
-        
-    </div>
+    </Box>
+    </Box>
   );
 }
 

@@ -20,6 +20,11 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
+import FiberNewIcon from '@mui/icons-material/FiberNew';
+import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
   }
@@ -28,15 +33,9 @@ interface PropType{
     data: orderProperties
 }
 
-
-
-
-
 function Dispatchitem(props : PropType) {
     const [expanded, setExpanded] = React.useState(false);
     const [userDetail, setUserDetail] = useState<userDetailType>()
-
-
 
     const ExpandMore = styled((props: ExpandMoreProps) => {
         const { expand, ...other } = props;
@@ -52,13 +51,13 @@ function Dispatchitem(props : PropType) {
   useEffect(() => {   
   }, [])
 
-    async function fetchUserInfo(){    
+    async function fetchUserInfo(){     
       try {
         const response = await fetch(`/api/users/${props.data.user_id}`);
         if (response.ok) {
           const jsonResponse = await response.json();
           setUserDetail(jsonResponse);
-          console.log(jsonResponse)
+        //   console.log(jsonResponse)
           return jsonResponse;
         }
         throw new Error('Request failed!');
@@ -67,17 +66,33 @@ function Dispatchitem(props : PropType) {
       }
     }
 
+    async function setOrderState(){     
+        try {
+          const response = await fetch(`/api/users/${props.data.user_id}`);
+          if (response.ok) {
+            const jsonResponse = await response.json();
+            setUserDetail(jsonResponse);
+          //   console.log(jsonResponse)
+            return jsonResponse;
+          }
+          throw new Error('Request failed!');
+        } catch (error) {
+          console.log(error); 
+        }
+      }
 
-  const handleExpandClick = () => {
+
+  const handleExpandClick = () => {     //? Expand button logic
     fetchUserInfo();
     setExpanded(!expanded);
   };
 
-  const Orderuserdetail = () => {
+    const Orderuserdetail = () => {     //? Contains the expand area data (user info fed from fetch)
     return (
         <CardContent sx={{display: "flex", justifyContent: "space-between"}}>
             <CardContent>       
                 <Typography>
+                UserID: {userDetail?.user_id} <br />
                 {`Dispatch to: ${userDetail?.firstname} ${userDetail?.lastname}`}
 
                 </Typography>
@@ -94,30 +109,83 @@ function Dispatchitem(props : PropType) {
 
       </CardContent>
     )
-}
+    }
+    const Orderstatus = () => {
+        switch(props.data.status){
+            case "In Progress":
+                return (
+                    <Avatar sx={{ bgcolor: "blue" }} aria-label="Status">
+                        <PlayCircleFilledIcon/>
+                    </Avatar>
+                )
+            case null:
+                return (
+                    <Avatar sx={{ bgcolor: "red" }} aria-label="Status">
+                    <FiberNewIcon/>
+                </Avatar>
+                )
+            case "Dispatched":
+                return (
+                <Avatar sx={{ bgcolor: "green" }} aria-label="Status">
+                    <LocalShippingIcon/>
+                </Avatar>
+                )
+            case "Complete":
+                return (
+                    <Avatar sx={{ bgcolor: "gold" }} aria-label="Status">
+                    <CheckCircleIcon/>
+                </Avatar>
+                )
+            default:
+                return (
+                    <Avatar sx={{ bgcolor: "grey" }} aria-label="Status">
+                    
+                </Avatar>
+                )
+            
+        }
+
+    }
 
   return (
     <Card 
-    sx={{border: "1px grey solid"  }}
-    onClick={handleExpandClick}
+    sx={{
+        border: "1px grey solid",
+        m: "5px"  }}
+    
     >
       <CardHeader
+        avatar={
+            <Orderstatus/>
+        }
         title={`Order ${props.data.order_id}`}
-        subheader={`UserID ${props.data.user_id}`}
+        subheader={`Order Placed ${props.data.order_date.slice(0,10)}`}
+        onClick={handleExpandClick}
       />
 
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
+      <CardContent sx={{py: 0}} onClick={handleExpandClick}>
+        <Typography variant="body2" color="text.primary" >
             {`${props.data.quantity}x ${props.data.title}`}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+
+      <IconButton aria-label="New" sx={{mx: "2vw"}}>
+      <FiberNewIcon/>
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+
+        <IconButton aria-label="In Progress" sx={{mx: "2vw"}}>
+          <PlayCircleFilledIcon/>
         </IconButton>
+
+        <IconButton aria-label="Dispatched" sx={{mx: "2vw"}}>
+          <LocalShippingIcon />
+        </IconButton>
+
+        <IconButton aria-label="Complete" sx={{mx: "2vw"}}>
+          <CheckCircleIcon/>
+        </IconButton>
+
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

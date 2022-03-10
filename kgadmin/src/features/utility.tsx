@@ -32,7 +32,7 @@ return storeSorted
 
 type modType = 'older' | 'newer';
 
-// Takes `/api/orders` and 'older' or 'newer' and returns array of orders in timeframe relating to 7d
+//? Takes `/api/orders` and 'older' or 'newer' and returns array of orders in timeframe relating to 7d
 export const find7Days = (array : orderProperties[], mod : modType) => {
     let store : orderProperties[] = [];
     if (mod === "older"){
