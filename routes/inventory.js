@@ -19,6 +19,8 @@ inventoryRouter.get('/', function(req, res, next) {
 
 });
 
+
+
 // Retrieves info relating to a single inventory_id
 inventoryRouter.get('/:id', function(req, res, next) {
   pool.query(`

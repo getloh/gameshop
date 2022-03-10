@@ -1,6 +1,6 @@
 ## to do
-- set express to register admins- set a specific cookie
-- do not let users into the admin site without the cookie
+* set express to register admins- set a specific cookie
+* do not let users into the admin site without the cookie
 
 ## planned features/scope
 ### managerial
@@ -15,3 +15,9 @@
 - easy interface for changing order status
 - show orders which have a status of null/'confirmed'
 
+##Pages
+- Dashboard for stock
+- Stock and inventory detail
+- Dashboard for revenue
+- Dashboard for orders
+- Worker page for order fulfill

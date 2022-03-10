@@ -7,7 +7,28 @@ const login = require('./login');
 
 // GET all order information (admin function)
 orderRouter.get('/', login.staffAuthentication, function(req, res, next) {
-  pool.query('SELECT * FROM orders ORDER BY order_id ASC', (error, results) => {
+  pool.query(`
+  SELECT orders.user_id, orders.order_id, orders.inventory_id, orders.quantity, orders.status, orders.order_date, orders.payment, inventory.title, inventory.platform, inventory.price FROM orders 
+  LEFT JOIN inventory
+  ON orders.inventory_id = inventory.inventory_id
+  ORDER BY order_id ASC`, (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.status(200).json(results.rows)
+  })
+});
+
+// GET all order information - DETAILED (admin function)
+orderRouter.get('/detail', login.staffAuthentication, function(req, res, next) {
+  pool.query(
+    `SELECT orders.user_id, orders.order_id, orders.inventory_id, orders.quantity, orders.status, orders.order_date, users.firstname, users.lastname, users.email, users.address, users.postcode, inventory.title, inventory.platform, inventory.price, inventory.discount FROM orders
+    LEFT JOIN inventory
+    ON orders.inventory_id = inventory.inventory_id
+    LEFT JOIN users
+    ON orders.user_id = users.user_id
+   ORDER BY order_id DESC
+   LIMIT 50`, (error, results) => {
     if (error) {
       throw error
     }
