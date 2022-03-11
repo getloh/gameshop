@@ -1,0 +1,67 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  /* border: 1px solid maroon; */
+
+}
+
+
+#navpage button{
+  position: fixed;
+  right: 0%;
+  z-index: 10;
+}
+
+#dashboard-sales{
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+#dashboard-sales-upper{
+  display: flex;
+
+  justify-content: space-between;
+}
+#dashboard-sales-lower{
+  display: flex;
+
+  justify-content: space-between;
+}
+.chart {
+  width: 80%;
+  height: 60%;
+  margin: 1vh 1vw;
+  padding: 1vh 1vw;
+
+}
+
+#dashboard-sales-lower .chart {
+  width: 50%;
+}
+
+#dashboard-stock-left{
+  display: flex;
+}
+
+#dashboard-orders {
+  display: flex;
+}
+#dashboard-orders-lower {
+  display: flex;
+}
+
+#dashboard-orders-upper {
+  width: 60vw;
+}
+#order-chart{
+ width: 100%
+}
+
+#test{
+  color: dark
+
+}

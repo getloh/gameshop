@@ -21,7 +21,8 @@ app.set('view engine', 'jade');
 // -------------
 //* middlewares
 // -------------
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use("/", express.static(path.join(__dirname, 'client/build')));
+app.use("/admin", express.static(path.join(__dirname, 'admin/build')));
 
 
 app.use(logger('dev'));
@@ -41,7 +42,12 @@ app.use('/api/users', usersRouter);
 app.use('/api/inventory', inventoryRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/login', login.Router);
-
+app.get('/admin', function(req, res) {
+  res.sendFile('index.html', {root: path.join(__dirname, 'kgadmin/build/')});
+});
+app.get('/admin/*', function(req, res) {
+  res.sendFile('index.html', {root: path.join(__dirname, 'admin/build/')});
+});
 app.get('*', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, 'client/build/')});
 });

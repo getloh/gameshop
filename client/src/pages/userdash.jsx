@@ -3,6 +3,16 @@ import {Link, useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserInfo } from '../features/user/userSlice';
 
+const Adminbutton = () => {
+  const navigate = useNavigate();
+
+  return (
+    <button style={{border: "rgb(61, 141, 187) 3px solid"}} onClick={() => window.location='/admin'} className="userpagebutton">
+    <h3>Admin Panel</h3>
+    <p>Staff dashboard</p>
+  </button>
+  )
+}
 
 function Userdash() {
   const state = useSelector(state => state.user.userinfo)
@@ -29,9 +39,14 @@ function Userdash() {
     document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
     document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
     document.cookie = "session_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+    document.cookie = "staffsession_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
     dispatch(setUserInfo(initialUserState))
     navigate('/');
   }
+
+  let staffSession = document.cookie?.split('; ')
+  ?.find(row => row.startsWith('staffsession_id='))
+  ?.split('=')[1];
 
   return (
     <div id="userpage">
@@ -64,6 +79,7 @@ function Userdash() {
               <h3>Log Out</h3>
               <p>Sign out of session</p>
             </button>
+            {staffSession > 1 ? <Adminbutton/> : null}
 
         </section>
     </div>
