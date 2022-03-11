@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 
 interface proptype {
     data: orderDataDetailType[]
+    show?: number;
 }
 
 function Recentsales(props: proptype) {
@@ -18,14 +19,14 @@ function Recentsales(props: proptype) {
   }, [])
 
 
-
+  let showNumber = props?.show || 5
 
   return (
       <Card sx={{m: "10px;"}}>
         <CardContent>
-          <Typography variant="h6">Last 5 Sales</Typography>
+          <Typography variant="h6">Last {showNumber} Sales</Typography>
         </CardContent>
-        {props.data.slice(0,5).map(x => 
+        {props.data.slice(0,showNumber).map(x => 
 
                 <CardContent key={x.order_id}>
                   <Typography variant="body2">

@@ -9,34 +9,54 @@ import Dashboardstock from './pages/Dashboardstock';
 import Dashboardorders from './pages/Dashboardorders';
 import Home from './pages/Home';
 import Dispatch from './pages/Dispatch';
+import Login from './pages/Login';
 
 function App() {
   function add (num1: number, num2: number){}
+
+
+  const CheckCookie = () => {
+
+    const cookies = document.cookie;
+
+    let staffSession = cookies?.split('; ')
+      ?.find(row => row.startsWith('staffsession_id='))
+      ?.split('=')[1];
+
+    if (staffSession){
+      if (staffSession[2] === staffSession[13]){
+        return (
+          
+          <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/stock' element={<Dashboardstock />} />
+          <Route path='/sales' element={<Dashboardsales />} />
+          <Route path='/orders' element={<Dashboardorders />} />
+          <Route path='/dispatch' element={<Dispatch />} />
+          </Routes>
+        )
+      }
+    }
+    
+      return (<Login/>)
+    
+    
+
+
+  }
+
+    
+  
+
+  
 
   return (
     <div id="rootcontent">
       <Nav></Nav>
 
       <div id="maincontent">
+      <CheckCookie />
 
-      <Routes>
-         <Route path='/' element={<Home />} />
-         <Route path='/stock' element={<Dashboardstock />} />
-         <Route path='/sales' element={<Dashboardsales />} />
-         <Route path='/orders' element={<Dashboardorders />} />
-         <Route path='/dispatch' element={<Dispatch />} />
-        {/* <Route path='/shop' element={<Shop />} />
-        <Route path='/shop/games/:inventory_id' element={<Itempage />} />
-        <Route path='/info' element={<Info />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/userdash' element={<Userdash />} />
-        <Route path='/checkout' element={<Checkout />} />
-        <Route path='/checkout/pay' element={<Payment />} />
-        <Route path='/userorders' element={<Userorders />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/user/amend' element={<Useramend />} />
-        <Route path='*' element={<Notfound />} /> */}
-      </Routes>
       </div>
     </div>
   );

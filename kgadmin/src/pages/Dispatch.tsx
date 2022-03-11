@@ -48,7 +48,7 @@ function Dispatch() {
     <Box>
         <Typography variant='h4' align="center"> Dispatch - Orders waiting </Typography>
     <Box sx={{}}>
-        {activeData.map(x => <Dispatchitem data={x}/>)}
+        {activeData.map(x => <Dispatchitem key={x.order_id} data={x}/>)}
     </Box>
     </Box>
   );

@@ -128,8 +128,10 @@ function Dashboardorders() {
 const salesData = getDailyData(getPricePerOrder(orderData))
 
   return (
+        <div>
+    <Typography variant="h4" align="center">Order Dashboard</Typography>
     <div id="dashboard-orders">
-        <Typography variant="h4" align="center">Order Dashboard</Typography>
+        
         <div id="dashboard-orders-upper">
             <div id="order-chart" className="chart">
                 <SalesChart 
@@ -140,19 +142,19 @@ const salesData = getDailyData(getPricePerOrder(orderData))
                 type="Line"
                 />
             </div>
-            <div style={{width: "300px"}}><TopRecentSales data={orderDataDetail}></TopRecentSales></div>
-            <div style={{width: "300px"}}><Recentsales data={orderDataDetail}/> </div>
+            <Box sx={{display: "flex", mt: "5vh"}}>
+                {orderData.length === 0 ? <Skeleton variant="text" /> : <Openorders data={orderData}/>}
+                {orderDataDetail.length === 0 ? <Skeleton variant="text" /> : <Ordersoverdue data={orderData}/>}
+            </Box>
         </div>
 
         <div id="dashboard-orders-lower">
-            {orderData.length === 0 ? <Skeleton variant="text" /> : <Openorders data={orderData}/>}
-            {orderDataDetail.length === 0 ? <Skeleton variant="text" /> : <Ordersoverdue data={orderData}/>}
+            <div style={{width: "300px"}}><TopRecentSales data={orderDataDetail} show={8}></TopRecentSales></div>
+            <div style={{width: "300px"}}><Recentsales data={orderDataDetail} show={8}/> </div>
+
         </div>
 
-
-        
-        
-
+    </div>
     </div>
   );
 }

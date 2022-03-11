@@ -14,12 +14,9 @@ import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Tooltip from '@mui/material/Tooltip';
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FiberNewIcon from '@mui/icons-material/FiberNew';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -35,7 +32,8 @@ interface PropType{
 
 function Dispatchitem(props : PropType) {
     const [expanded, setExpanded] = React.useState(false);
-    const [userDetail, setUserDetail] = useState<userDetailType>()
+    const [userDetail, setUserDetail] = useState<userDetailType>();
+    let [update, setUpdate] = useState<number>(0); 
 
     const ExpandMore = styled((props: ExpandMoreProps) => {
         const { expand, ...other } = props;
@@ -66,19 +64,28 @@ function Dispatchitem(props : PropType) {
       }
     }
 
-    async function setOrderState(){     
+      async function setOrderStatus (newStatus : any) {
+        const object = {status: newStatus};
         try {
-          const response = await fetch(`/api/users/${props.data.user_id}`);
-          if (response.ok) {
-            const jsonResponse = await response.json();
-            setUserDetail(jsonResponse);
-          //   console.log(jsonResponse)
-            return jsonResponse;
+          const response = await fetch(`/api/orders/${props.data.order_id}`, {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(object)
+          });
+          if(response.ok){
+              props.data.status = newStatus
+              setUpdate(update + 1);
+            return
           }
           throw new Error('Request failed!');
-        } catch (error) {
-          console.log(error); 
+        } catch(error) {
+          console.log(error);
         }
+      
       }
 
 
@@ -110,7 +117,7 @@ function Dispatchitem(props : PropType) {
       </CardContent>
     )
     }
-    const Orderstatus = () => {
+    const Orderstatus = () => {     //? Controls the little avatar icon and status
         switch(props.data.status){
             case "In Progress":
                 return (
@@ -170,21 +177,29 @@ function Dispatchitem(props : PropType) {
       </CardContent>
       <CardActions disableSpacing>
 
-      <IconButton aria-label="New" sx={{mx: "2vw"}}>
-      <FiberNewIcon/>
+        <Tooltip title="Set status: New" placement="top">
+        <IconButton aria-label="New" sx={{mx: "2vw"}} onClick={() => setOrderStatus(null)}>
+          <FiberNewIcon/>
         </IconButton>
+        </Tooltip>
 
-        <IconButton aria-label="In Progress" sx={{mx: "2vw"}}>
+        <Tooltip title="Set status: In Progress" placement="top">
+        <IconButton aria-label="In Progress" sx={{mx: "2vw"}} onClick={() => setOrderStatus("In Progress")}>
           <PlayCircleFilledIcon/>
         </IconButton>
+        </Tooltip>
 
-        <IconButton aria-label="Dispatched" sx={{mx: "2vw"}}>
+        <Tooltip title="Set status: Dispatched" placement="top">
+        <IconButton aria-label="Dispatched" sx={{mx: "2vw"}} onClick={() => setOrderStatus("Dispatched")}>
           <LocalShippingIcon />
         </IconButton>
+        </Tooltip>
 
-        <IconButton aria-label="Complete" sx={{mx: "2vw"}}>
+        <Tooltip title="Set status: Complete" placement="top">
+        <IconButton aria-label="Complete" sx={{mx: "2vw"}} onClick={() => setOrderStatus("Complete")}>
           <CheckCircleIcon/>
         </IconButton>
+        </Tooltip>
 
         <ExpandMore
           expand={expanded}

@@ -47,6 +47,17 @@ orderRouter.get('/:id', login.authentication, function(req, res, next) {
   })
 });
 
+// Updates order status
+orderRouter.put('/:id', login.staffAuthentication, function(req, res, next) {
+  const updatedStatus = req.body
+  pool.query(`UPDATE orders SET status = $1 WHERE order_id = $2`,[req.body.status, req.params.id], (error, results) => {
+    if (error) {
+      throw error }
+  })
+  res.status(202).send()
+
+});
+
 // DELETEs an order ?
 orderRouter.delete('/:id', function(req, res, next) {
   res.status(405).send("Function not available yet")

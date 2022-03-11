@@ -47,15 +47,18 @@
   display: flex;
 }
 
+#dashboard-orders {
+  display: flex;
+}
 #dashboard-orders-lower {
   display: flex;
 }
 
 #dashboard-orders-upper {
-  display: flex;
+  width: 60vw;
 }
 #order-chart{
-  max-width: 60vw;
+ width: 100%
 }
 
 #test{
